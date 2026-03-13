@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waco Care Connect</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1a6b4a;
+    --green-light: #e8f5ee;
+    --green-mid: #2d8f62;
+    --gold: #c8932a;
+    --gold-light: #fdf3e0;
+    --red: #c0392b;
+    --blue: #1e5fa8;
+    --blue-light: #e8f0fb;
+    --purple: #6b3fa0;
+    --purple-light: #f0eafa;
+    --teal: #0d7b7b;
+    --teal-light: #e6f5f5;
+    --bg: #f7f9f4;
+    --white: #ffffff;
+    --text: #1a1f16;
+    --muted: #5a6354;
+    --border: #d4e0cc;
+    --radius: 14px;
+    --shadow: 0 2px 12px rgba(26,107,74,0.08);
+    --shadow-md: 0 4px 24px rgba(26,107,74,0.13);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--green);
+    color: white;
+    padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  }
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 58px;
+    gap: 12px;
+  }
+  .logo {
+    font-family: 'Sora', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    white-space: nowrap;
+  }
+  .logo span { color: #7ee8b0; }
+  .lang-toggle {
+    display: flex;
+    background: rgba(255,255,255,0.15);
+    border-radius: 20px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .lang-btn {
+    border: none;
+    background: none;
+    color: rgba(255,255,255,0.75);
+    padding: 5px 13px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+    border-radius: 20px;
+  }
+  .lang-btn.active {
+    background: white;
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, var(--green) 0%, #0f4a30 100%);
+    color: white;
+    text-align: center;
+    padding: 40px 20px 32px;
+  }
+  .hero h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(22px, 5vw, 34px);
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .hero p {
+    font-size: 15px;
+    opacity: 0.85;
+    max-width: 480px;
+    margin: 0 auto 24px;
+  }
+
+  /* ── QUIZ ── */
+  .quiz-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 24px;
+    max-width: 560px;
+    margin: 0 auto;
+    box-shadow: var(--shadow-md);
+  }
+  .quiz-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--green-mid);
+    margin-bottom: 10px;
+  }
+  .quiz-question {
+    font-family: 'Sora', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .quiz-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .quiz-opt {
+    border: 2px solid var(--border);
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 11px 13px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    transition: all 0.18s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 400;
+  }
+  .quiz-opt:hover { border-color: var(--green-mid); background: var(--green-light); }
+  .quiz-opt.selected { border-color: var(--green); background: var(--green-light); color: var(--green); font-weight: 500; }
+  .quiz-opt .icon { font-size: 18px; }
+  .quiz-progress {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 16px;
+  }
+  .progress-dot {
+    height: 4px;
+    flex: 1;
+    border-radius: 2px;
+    background: var(--border);
+    transition: background 0.3s;
+  }
+  .progress-dot.done { background: var(--green); }
+  .progress-dot.active { background: var(--green-mid); }
+  .quiz-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+  }
+  .btn-back {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 14px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    padding: 8px 0;
+  }
+  .btn-next {
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .btn-next.ready { opacity: 1; pointer-events: auto; }
+  .btn-next:hover { background: var(--green-mid); }
+  .quiz-results { display: none; }
+  .quiz-results.show { display: block; }
+  .results-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: var(--green);
+  }
+  .result-resource {
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 13px 15px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.18s;
+    background: white;
+  }
+  .result-resource:hover { border-color: var(--green); background: var(--green-light); }
+  .result-resource-name { font-weight: 600; font-size: 14px; margin-bottom: 3px; color: #1a1f16; }
+  .result-resource-desc { font-size: 13px; color: var(--muted); }
+  .btn-restart {
+    background: none;
+    border: 1.5px solid var(--border);
+    color: var(--muted);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    margin-top: 10px;
+    transition: all 0.18s;
+  }
+  .btn-restart:hover { border-color: var(--green); color: var(--green); }
+
+  /* ── MAIN ── */
+  main { max-width: 900px; margin: 0 auto; padding: 28px 16px 60px; }
+
+  /* ── FILTER BAR ── */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  .filter-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--muted);
+    margin-right: 4px;
+    white-space: nowrap;
+  }
+  .chip {
+    border: 1.5px solid var(--border);
+    background: white;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--muted);
+    transition: all 0.18s;
+    white-space: nowrap;
+    font-weight: 400;
+  }
+  .chip:hover { border-color: var(--green-mid); color: var(--green); }
+  .chip.active { background: var(--green); border-color: var(--green); color: white; font-weight: 500; }
+  .chip.student-chip.active { background: var(--gold); border-color: var(--gold); }
+  .divider-chip {
+    width: 1px;
+    height: 22px;
+    background: var(--border);
+    margin: 0 2px;
+  }
+
+  /* ── NEIGHBORHOOD FILTER ── */
+  .neighborhood-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .section-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .count-badge {
+    background: var(--green-light);
+    color: var(--green);
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 9px;
+  }
+
+  /* ── RESOURCE CARDS ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
+  .card {
+    background: white;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    padding: 18px;
+    transition: all 0.2s;
+    cursor: pointer;
+    position: relative;
+  }
+  .card:hover { border-color: var(--green-mid); box-shadow: var(--shadow); transform: translateY(-1px); }
+  .card.hidden { display: none; }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    gap: 8px;
+  }
+  .card-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+    flex: 1;
+  }
+  .card-category {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+  .cat-food { background: #fff3e0; color: #b25e00; }
+  .cat-health { background: #e8f0fb; color: #1e5fa8; }
+  .cat-mental { background: #f0eafa; color: #6b3fa0; }
+  .cat-housing { background: #e8f5ee; color: #1a6b4a; }
+  .cat-financial { background: #fdf3e0; color: #c8932a; }
+  .card-desc {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 12px;
+  }
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .tag-no-id { background: #e8f5ee; color: #1a6b4a; }
+  .tag-no-proof { background: #e8f0fb; color: #1e5fa8; }
+  .tag-free { background: #fff3e0; color: #b25e00; }
+  .tag-student { background: #fdf3e0; color: #c8932a; }
+  .tag-spanish { background: #f0eafa; color: #6b3fa0; }
+  .tag-walk-in { background: #e6f5f5; color: #0d7b7b; }
+  .tag-waitlist { background: #fff0f0; color: #c0392b; }
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    gap: 8px;
+  }
+  .card-neighborhood {
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .card-note {
+    font-size: 12px;
+    color: var(--green);
+    font-style: italic;
+    text-align: right;
+    flex: 1;
+  }
+  .student-badge {
+    position: absolute;
+    top: -1px;
+    right: 14px;
+    background: var(--gold);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 9px;
+    border-radius: 0 0 8px 8px;
+  }
+  .no-results {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+    font-size: 15px;
+    display: none;
+  }
+  .no-results.show { display: block; }
+
+  /* ── STUDENT SECTION ── */
+  .student-section {
+    background: linear-gradient(135deg, var(--gold-light) 0%, #fff9f0 100%);
+    border: 1.5px solid #e8c87a;
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 24px;
+  }
+  .student-section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .student-icon { font-size: 22px; }
+  .student-section-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #7a5100;
+  }
+  .student-section-subtitle { font-size: 13px; color: #9a6800; }
+  .student-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .student-pill {
+    background: white;
+    border: 1.5px solid #e8c87a;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    color: #7a5100;
+    transition: all 0.18s;
+    font-weight: 500;
+  }
+  .student-pill:hover { background: var(--gold); border-color: var(--gold); color: white; }
+
+  /* ── EMPTY STATE ── */
+  .verified-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--green);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .verified-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100%{opacity:1;transform:scale(1)}
+    50%{opacity:0.5;transform:scale(1.2)}
+  }
+
+  /* Mobile tweaks */
+  @media (max-width: 500px) {
+    .quiz-options { grid-template-columns: 1fr; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo">Waco <span>Care</span> Connect</div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
+      <button class="lang-btn" onclick="setLang('es')" id="btn-es">ES</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO + QUIZ -->
+<div class="hero">
+  <h1 id="hero-title">Find the help you need in Waco</h1>
+  <p id="hero-sub">Answer 3 quick questions — we'll show you the right resources for your situation.</p>
+  <div class="quiz-card">
+    <!-- Quiz flow -->
+    <div id="quiz-flow">
+      <div class="quiz-label" id="quiz-step-label">Step 1 of 3</div>
+      <div class="quiz-progress" id="progress-bar"></div>
+      <div class="quiz-question" id="quiz-q"></div>
+      <div class="quiz-options" id="quiz-opts"></div>
+      <div class="quiz-nav">
+        <button class="btn-back" id="btn-back" onclick="quizBack()">← Back</button>
+        <button class="btn-next" id="btn-next" onclick="quizNext()">Next →</button>
+      </div>
+    </div>
+    <!-- Results -->
+    <div class="quiz-results" id="quiz-results">
+      <div class="results-title" id="results-title">Based on your answers, here are your best options:</div>
+      <div id="results-list"></div>
+      <button class="btn-restart" onclick="quizRestart()">← Start over</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main>
+  <!-- Student section -->
+  <div class="student-section" id="student-section">
+    <div class="student-section-header">
+      <div class="student-icon">🎓</div>
+      <div>
+        <div class="student-section-title" id="student-title">For Baylor &amp; MCC Students</div>
+        <div class="student-section-subtitle" id="student-subtitle">Resources that work even with a student ID, no proof of income needed</div>
+      </div>
+    </div>
+    <div class="student-pills">
+      <button class="student-pill" onclick="filterStudent('food')" id="sp-food">🍎 Free food</button>
+      <button class="student-pill" onclick="filterStudent('mental')" id="sp-mental">💬 Mental health</button>
+      <button class="student-pill" onclick="filterStudent('health')" id="sp-health">🏥 Free clinic</button>
+      <button class="student-pill" onclick="filterStudent('financial')" id="sp-financial">💰 Emergency funds</button>
+      <button class="student-pill" onclick="filterStudent('housing')" id="sp-housing">🏠 Housing help</button>
+    </div>
+  </div>
+
+  <!-- Filter bar -->
+  <div class="filter-bar">
+    <span class="filter-label" id="filter-cat-label">Category:</span>
+    <button class="chip active" onclick="filterCat('all')" id="cat-all" data-en="All" data-es="Todo">All</button>
+    <button class="chip" onclick="filterCat('food')" id="cat-food" data-en="🍎 Food" data-es="🍎 Comida">🍎 Food</button>
+    <button class="chip" onclick="filterCat('health')" id="cat-health" data-en="🏥 Health" data-es="🏥 Salud">🏥 Health</button>
+    <button class="chip" onclick="filterCat('mental')" id="cat-mental" data-en="💬 Mental Health" data-es="💬 Salud Mental">💬 Mental Health</button>
+    <button class="chip" onclick="filterCat('housing')" id="cat-housing" data-en="🏠 Housing" data-es="🏠 Vivienda">🏠 Housing</button>
+    <button class="chip" onclick="filterCat('financial')" id="cat-financial" data-en="💰 Financial" data-es="💰 Finanzas">💰 Financial</button>
+    <div class="divider-chip"></div>
+    <button class="chip student-chip" onclick="filterCat('student')" id="cat-student" data-en="🎓 Student" data-es="🎓 Estudiante">🎓 Student</button>
+    <button class="chip" onclick="filterCat('spanish')" id="cat-spanish" data-en="🗣 En Español" data-es="🗣 En Español">🗣 En Español</button>
+  </div>
+
+  <!-- Neighborhood filter -->
+  <div class="neighborhood-row">
+    <span class="filter-label" id="filter-hood-label">Neighborhood:</span>
+    <button class="chip active" onclick="filterHood('all')" id="hood-all" data-en="All Waco" data-es="Todo Waco">All Waco</button>
+    <button class="chip" onclick="filterHood('near-baylor')" id="hood-baylor" data-en="Near Baylor" data-es="Cerca de Baylor">Near Baylor</button>
+    <button class="chip" onclick="filterHood('downtown')" id="hood-downtown" data-en="Downtown" data-es="Centro">Downtown</button>
+    <button class="chip" onclick="filterHood('east-waco')" id="hood-east" data-en="East Waco" data-es="Este de Waco">East Waco</button>
+    <button class="chip" onclick="filterHood('north-waco')" id="hood-north" data-en="North Waco" data-es="Norte de Waco">North Waco</button>
+    <button class="chip" onclick="filterHood('south-waco')" id="hood-south" data-en="South Waco" data-es="Sur de Waco">South Waco</button>
+    <button class="chip" onclick="filterHood('west-waco')" id="hood-west" data-en="West Waco" data-es="Oeste de Waco">West Waco</button>
+  </div>
+
+  <!-- Verified notice -->
+  <div class="verified-row">
+    <div class="verified-dot"></div>
+    <span id="verified-text">All listings student-verified · Updated March 2026</span>
+  </div>
+
+  <!-- Count + grid -->
+  <div class="section-header">
+    <div class="section-title">
+      <span id="section-title-text">Resources</span>
+      <span class="count-badge" id="count-badge">12</span>
+    </div>
+  </div>
+  <div class="cards-grid" id="cards-grid"></div>
+  <div class="no-results" id="no-results">
+    <div style="font-size:32px;margin-bottom:10px">🔍</div>
+    <div id="no-results-text">No resources match this filter. Try a different combination.</div>
+  </div>
+</main>
+
+<script>
+// ──────────────────────────────────────────────
+// DATA
+// ──────────────────────────────────────────────
+const resources = [
+  {
+    id: 1, name_en: "Care Net Waco", name_es: "Care Net Waco",
+    category: "health",
+    desc_en: "Free pregnancy testing, options counseling, and material support. Text or call anytime.",
+    desc_es: "Pruebas de embarazo gratuitas, consejería de opciones y apoyo material. Llama o envía mensaje.",
+    tags: ["free","no-id","spanish","walk-in"],
+    neighborhood: "south-waco",
+    student: false,
+    note_en: "Text RN at (254) 452-5250 anytime. Mon–Fri 8am–5pm.",
+    note_es: "Envía mensaje a (254) 452-5250. Lun–Vie 8am–5pm.",
+    phone: "254-772-6175"
+  },
+  {
+    id: 2, name_en: "Hope Pregnancy Center", name_es: "Centro de Esperanza",
+    category: "health",
+    desc_en: "Free pregnancy testing and ultrasounds. Counseling services also available.",
+    desc_es: "Pruebas de embarazo y ultrasonidos gratis. También hay servicios de consejería.",
+    tags: ["free","no-id","spanish"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Appointment needed. Mon–Fri 10am–5pm.",
+    note_es: "Se requiere cita. Lun–Vie 10am–5pm.",
+    phone: "254-757-5500"
+  },
+  {
+    id: 3, name_en: "Waco Family Medicine", name_es: "Medicina Familiar de Waco",
+    category: "health",
+    desc_en: "Federally qualified health center with sliding-scale fees. Primary care for all patients, no insurance required.",
+    desc_es: "Centro de salud con tarifas ajustadas al ingreso. Atención primaria para todos, sin seguro.",
+    tags: ["no-proof","spanish","walk-in"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Pay what you can. Uninsured patients welcome. Call ahead.",
+    note_es: "Paga lo que puedas. Se aceptan pacientes sin seguro.",
+    phone: "254-313-4200"
+  },
+  {
+    id: 4, name_en: "Waco Family Medicine Dental", name_es: "Dental Medicina Familiar de Waco",
+    category: "health",
+    desc_en: "Sliding-scale dental clinic at the same location as Waco Family Medicine. Medicaid accepted.",
+    desc_es: "Clínica dental con tarifas ajustadas. Se acepta Medicaid.",
+    tags: ["no-proof","spanish"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Appointment required. Sliding scale — income-based cost.",
+    note_es: "Se requiere cita. Costo según ingresos.",
+    phone: "254-313-4444"
+  },
+  {
+    id: 5, name_en: "Mission Waco Medical Clinic", name_es: "Clínica Médica de Mission Waco",
+    category: "health",
+    desc_en: "Free adult medical care for uninsured residents. Walk-in evenings twice a week.",
+    desc_es: "Atención médica gratuita para adultos sin seguro. Sin cita, dos noches por semana.",
+    tags: ["free","no-id","no-proof","spanish","walk-in"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Tue & Thu 4:30–7pm. Sign in starts at 4:30 — arrive early.",
+    note_es: "Mar y Jue 4:30–7pm. Registro a las 4:30 — llega temprano.",
+    phone: "254-753-4900"
+  },
+  {
+    id: 6, name_en: "Waco-McLennan County Public Health District", name_es: "Distrito de Salud Pública Waco-McLennan",
+    category: "health",
+    desc_en: "Free immunizations, testing, and public health programs for all Waco residents.",
+    desc_es: "Vacunas, pruebas y programas de salud pública gratuitos para todos los residentes.",
+    tags: ["free","spanish"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Mon–Fri 8am–4:30pm. Call ahead for specific services.",
+    note_es: "Lun–Vie 8am–4:30pm. Llama para servicios específicos.",
+    phone: "254-750-5450"
+  },
+  {
+    id: 7, name_en: "Ascension Providence Hospital", name_es: "Hospital Ascension Providence",
+    category: "health",
+    desc_en: "Full-service hospital with 24-hour emergency room. Financial assistance programs available.",
+    desc_es: "Hospital completo con sala de emergencias 24 horas. Programas de ayuda financiera disponibles.",
+    tags: ["spanish"],
+    neighborhood: "south-waco",
+    student: false,
+    note_en: "ER open 24/7. Ask about financial assistance if uninsured.",
+    note_es: "Emergencias 24/7. Pregunta sobre ayuda financiera si no tienes seguro.",
+    phone: "254-751-4000"
+  },
+  {
+    id: 8, name_en: "Baylor Scott & White Hillcrest", name_es: "Baylor Scott & White Hillcrest",
+    category: "health",
+    desc_en: "Regional hospital with 24-hour emergency care. Financial counselors on staff.",
+    desc_es: "Hospital regional con atención de emergencia 24 horas. Consejeros financieros disponibles.",
+    tags: ["spanish"],
+    neighborhood: "south-waco",
+    student: false,
+    note_en: "ER open 24/7. Ask billing about charity care options.",
+    note_es: "Emergencias 24/7. Pregunta sobre opciones de ayuda en facturación.",
+    phone: "254-202-2000"
+  },
+  {
+    id: 9, name_en: "Heart of Texas Behavioral Health Network", name_es: "Red de Salud Mental Heart of Texas",
+    category: "mental",
+    desc_en: "Sliding-scale outpatient mental health and crisis services. 24-hour crisis line available.",
+    desc_es: "Servicios de salud mental a costo ajustado. Línea de crisis disponible las 24 horas.",
+    tags: ["no-proof","spanish"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "24hr crisis line available. Expect ~2 week wait for appointments.",
+    note_es: "Línea de crisis 24hrs. Espera aproximada de 2 semanas para citas.",
+    phone: "254-752-3451"
+  },
+  {
+    id: 10, name_en: "The Center for Children and Families", name_es: "Centro para Niños y Familias",
+    category: "mental",
+    desc_en: "Outpatient counseling for children and families. Evening appointments available.",
+    desc_es: "Consejería ambulatoria para niños y familias. Citas nocturnas disponibles.",
+    tags: [],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Mon–Fri 8am–7pm. Private insurance and self-pay accepted.",
+    note_es: "Lun–Vie 8am–7pm. Se acepta seguro privado y pago directo.",
+    phone: "254-772-8055"
+  },
+  {
+    id: 11, name_en: "STARRY Counseling (FAYS Program)", name_es: "Consejería STARRY (Programa FAYS)",
+    category: "mental",
+    desc_en: "Free family counseling for families with children. No cost through the FAYS program.",
+    desc_es: "Consejería familiar gratuita para familias con hijos. Sin costo a través del programa FAYS.",
+    tags: ["free","no-proof","spanish"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Completely free — no insurance needed. Call for intake appointment.",
+    note_es: "Completamente gratuito — sin seguro. Llama para cita de admisión.",
+    phone: "254-399-6552"
+  },
+  {
+    id: 12, name_en: "Family Abuse Center", name_es: "Centro de Abuso Familiar",
+    category: "mental",
+    desc_en: "24-hour emergency shelter, advocacy, and counseling for domestic violence survivors.",
+    desc_es: "Refugio de emergencia, apoyo legal y consejería para sobrevivientes de violencia doméstica.",
+    tags: ["free","no-id","spanish","walk-in"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Crisis line 24/7 — call anytime. Confidential and free.",
+    note_es: "Línea de crisis 24/7. Confidencial y gratuito.",
+    phone: "254-772-8999"
+  },
+  {
+    id: 13, name_en: "Caritas of Waco Food Pantry", name_es: "Despensa de Alimentos Caritas de Waco",
+    category: "food",
+    desc_en: "Walk-in food pantry plus rent assistance and job help. No ID required.",
+    desc_es: "Despensa de acceso libre, ayuda para renta y empleo. Sin identificación requerida.",
+    tags: ["free","no-id","no-proof","spanish","walk-in"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Mon–Fri 8am–4pm. Also offers rent and employment assistance.",
+    note_es: "Lun–Vie 8am–4pm. También ofrece ayuda para renta y empleo.",
+    phone: "254-753-4593"
+  },
+  {
+    id: 14, name_en: "Central Texas Food Bank", name_es: "Banco de Alimentos del Centro de Texas",
+    category: "food",
+    desc_en: "Mobile food pantry distributions across Waco. Schedule varies — check website for locations.",
+    desc_es: "Distribuciones móviles de alimentos en Waco. Horario variable — consulta el sitio web.",
+    tags: ["free","no-id","no-proof","spanish","walk-in"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Mobile pantries move around — check centraltexasfoodbank.org for current schedule.",
+    note_es: "Las despensas móviles cambian de lugar — revisa centraltexasfoodbank.org.",
+    phone: "512-282-2111"
+  },
+  {
+    id: 15, name_en: "Meals on Wheels Waco", name_es: "Comidas a Domicilio Waco",
+    category: "food",
+    desc_en: "Home-delivered meals for seniors who have difficulty leaving the house.",
+    desc_es: "Comidas a domicilio para personas mayores con dificultad para salir.",
+    tags: ["free"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "For seniors only. Donation-based. Call to apply — Mon–Fri 8am–4pm.",
+    note_es: "Solo para personas mayores. Basado en donaciones. Llama para solicitar.",
+    phone: "254-752-0316"
+  },
+  {
+    id: 16, name_en: "Salvation Army Waco", name_es: "Ejército de Salvación Waco",
+    category: "financial",
+    desc_en: "Emergency utility bills, rent help, and food assistance. Walk-in available Mon–Fri mornings.",
+    desc_es: "Ayuda para servicios, renta y comida de emergencia. Sin cita Lun–Vie por la mañana.",
+    tags: ["no-proof","spanish","walk-in"],
+    neighborhood: "west-waco",
+    student: false,
+    note_en: "Walk in Mon–Fri 9am–4pm. First-come, first-served.",
+    note_es: "Sin cita Lun–Vie 9am–4pm. Por orden de llegada.",
+    phone: "254-756-7271"
+  },
+  {
+    id: 17, name_en: "Waco Housing Authority", name_es: "Autoridad de Vivienda de Waco",
+    category: "housing",
+    desc_en: "Public housing units and Section 8 housing vouchers for income-qualified residents.",
+    desc_es: "Vivienda pública y vales de vivienda Sección 8 para residentes con ingresos calificados.",
+    tags: ["no-proof","spanish"],
+    neighborhood: "west-waco",
+    student: false,
+    note_en: "Waitlist may be long. Apply early. Mon–Fri 8am–5pm.",
+    note_es: "La lista de espera puede ser larga. Solicita con anticipación.",
+    phone: "254-752-0324"
+  },
+  {
+    id: 18, name_en: "Compassion Waco", name_es: "Compassion Waco",
+    category: "housing",
+    desc_en: "Transitional housing and community programs for homeless families. Appointment required.",
+    desc_es: "Vivienda de transición y programas comunitarios para familias sin hogar.",
+    tags: ["no-proof","spanish"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Call to schedule intake. Mon–Fri 9am–5pm.",
+    note_es: "Llama para programar admisión. Lun–Vie 9am–5pm.",
+    phone: "254-754-1875"
+  },
+  {
+    id: 19, name_en: "My Brother's Keeper (Mission Waco)", name_es: "Mi Hermano Guardador (Mission Waco)",
+    category: "food",
+    desc_en: "Free food and clothing for low-income residents through Mission Waco's church outreach.",
+    desc_es: "Comida y ropa gratis para residentes de bajos ingresos a través de Mission Waco.",
+    tags: ["free","no-id","no-proof","spanish","walk-in"],
+    neighborhood: "east-waco",
+    student: false,
+    note_en: "Walk in Mon–Fri 9am–4pm. No paperwork needed.",
+    note_es: "Sin cita Lun–Vie 9am–4pm. Sin papeleo.",
+    phone: "254-752-3343"
+  },
+  {
+    id: 20, name_en: "Esther's Closet (Mission Waco)", name_es: "El Armario de Ester (Mission Waco)",
+    category: "food",
+    desc_en: "Free professional clothing for low-income women. Walk-in at 4525 Bosque Blvd.",
+    desc_es: "Ropa profesional gratuita para mujeres de bajos ingresos.",
+    tags: ["free","no-id","spanish","walk-in"],
+    neighborhood: "west-waco",
+    student: false,
+    note_en: "For women only. Walk-in — check hours by calling Mission Waco.",
+    note_es: "Solo para mujeres. Sin cita — llama a Mission Waco para horarios.",
+    phone: "254-753-4900"
+  },
+  {
+    id: 21, name_en: "Lone Star Legal Aid", name_es: "Ayuda Legal Lone Star",
+    category: "financial",
+    desc_en: "Free civil legal help for income-qualified residents. Housing and benefits cases prioritized.",
+    desc_es: "Ayuda legal civil gratuita para residentes con ingresos calificados.",
+    tags: ["free","no-proof","spanish"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Call for eligibility screening. Income-based — students often qualify.",
+    note_es: "Llama para evaluación de elegibilidad. Estudiantes frecuentemente califican.",
+    phone: "800-733-8394"
+  },
+  {
+    id: 22, name_en: "Greater Waco Legal Services", name_es: "Servicios Legales del Gran Waco",
+    category: "financial",
+    desc_en: "Free and low-cost legal aid for housing and family law cases.",
+    desc_es: "Ayuda legal gratuita o de bajo costo para casos de vivienda y derecho familiar.",
+    tags: ["free","no-proof","spanish"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Income-based. Mon–Fri 8am–5pm. Call for intake.",
+    note_es: "Basado en ingresos. Lun–Vie 8am–5pm. Llama para proceso de admisión.",
+    phone: "254-756-7944"
+  },
+  {
+    id: 23, name_en: "Baylor Law Clinic", name_es: "Clínica Legal de Baylor",
+    category: "financial",
+    desc_en: "Free legal services by law students supervised by licensed attorneys. Income-based eligibility.",
+    desc_es: "Servicios legales gratuitos por estudiantes de derecho supervisados por abogados.",
+    tags: ["free","no-proof","spanish","student"],
+    neighborhood: "near-baylor",
+    student: true,
+    note_en: "Baylor students and community members can apply. Call for intake.",
+    note_es: "Estudiantes de Baylor y comunidad pueden aplicar. Llama para admisión.",
+    phone: "254-710-4244"
+  },
+  {
+    id: 24, name_en: "McLennan County Indigent Health Care", name_es: "Cuidado de Salud Indigente del Condado McLennan",
+    category: "health",
+    desc_en: "County program to help pay medical bills for uninsured residents who live in McLennan County.",
+    desc_es: "Programa del condado para ayudar a pagar facturas médicas de residentes sin seguro.",
+    tags: ["no-proof","spanish"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Must be county resident. Call for eligibility. Mon–Fri 8am–5pm.",
+    note_es: "Debe ser residente del condado. Llama para elegibilidad.",
+    phone: "254-757-5183"
+  },
+  {
+    id: 25, name_en: "American Red Cross Waco", name_es: "Cruz Roja Americana Waco",
+    category: "financial",
+    desc_en: "Emergency disaster relief including food, shelter, and financial help after disasters.",
+    desc_es: "Ayuda de emergencia ante desastres: comida, refugio y ayuda financiera.",
+    tags: ["free","no-id","spanish"],
+    neighborhood: "west-waco",
+    student: false,
+    note_en: "For disaster victims. Call to start a relief case.",
+    note_es: "Para víctimas de desastres. Llama para iniciar un caso de ayuda.",
+    phone: "254-756-5271"
+  },
+  {
+    id: 26, name_en: "Goodall-Witcher Clinic (Waco Outreach)", name_es: "Clínica Goodall-Witcher (Extensión Waco)",
+    category: "health",
+    desc_en: "Sliding-scale primary care clinic with Medicaid and Medicare accepted.",
+    desc_es: "Clínica de atención primaria con tarifas ajustadas. Se acepta Medicaid y Medicare.",
+    tags: ["no-proof","spanish"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Appointment required. Pay-what-you-can option available.",
+    note_es: "Se requiere cita. Opción de pago según posibilidades.",
+    phone: "254-826-3461"
+  },
+  {
+    id: 27, name_en: "Cenikor Waco", name_es: "Cenikor Waco",
+    category: "mental",
+    desc_en: "Inpatient and outpatient addiction recovery programs. Sliding-scale and Medicaid accepted.",
+    desc_es: "Programas de recuperación de adicciones internados y ambulatorios. Se acepta Medicaid.",
+    tags: ["no-proof","spanish"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "24-hour intake line. Sliding scale available for uninsured.",
+    note_es: "Línea de admisión 24 horas. Escala deslizante para no asegurados.",
+    phone: "254-776-7366"
+  },
+  {
+    id: 28, name_en: "La Puerta Ministries (Immigration Help)", name_es: "Ministerios La Puerta (Ayuda de Inmigración)",
+    category: "financial",
+    desc_en: "Free immigration legal assistance and advocacy for immigrant families in Waco.",
+    desc_es: "Asistencia legal de inmigración gratuita y abogacía para familias inmigrantes.",
+    tags: ["free","no-proof","spanish","walk-in"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Spanish-speaking staff. Walk-in hours vary — call ahead.",
+    note_es: "Personal de habla hispana. Horarios de atención varían — llama.",
+    phone: "254-753-4593"
+  },
+  {
+    id: 29, name_en: "WIC McLennan County", name_es: "WIC Condado McLennan",
+    category: "food",
+    desc_en: "Free nutrition benefits for pregnant women, new mothers, and children under 5.",
+    desc_es: "Beneficios de nutrición gratuitos para embarazadas, madres nuevas y niños menores de 5.",
+    tags: ["free","no-proof","spanish"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Must be pregnant or have a child under 5. Appointment required.",
+    note_es: "Debes estar embarazada o tener un hijo menor de 5. Se requiere cita.",
+    phone: "254-750-5468"
+  },
+  {
+    id: 30, name_en: "Waco ISD Child Nutrition (School Meals)", name_es: "Nutrición Escolar Waco ISD",
+    category: "food",
+    desc_en: "Free and reduced-price breakfast and lunch for students enrolled in Waco ISD schools.",
+    desc_es: "Desayuno y almuerzo gratuitos o a bajo costo para estudiantes en escuelas Waco ISD.",
+    tags: ["free","no-proof","spanish","student"],
+    neighborhood: "downtown",
+    student: true,
+    note_en: "Apply through your child's school. Income-based eligibility.",
+    note_es: "Solicita a través de la escuela de tu hijo. Elegibilidad según ingresos.",
+    phone: "254-755-9473"
+  },
+  {
+    id: 31, name_en: "Prosper Waco", name_es: "Prosper Waco",
+    category: "financial",
+    desc_en: "Community programs for education, workforce development, and economic mobility.",
+    desc_es: "Programas comunitarios de educación, desarrollo laboral y movilidad económica.",
+    tags: ["free"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Mon–Fri 9am–5pm. Connects you to education and employment resources.",
+    note_es: "Lun–Vie 9am–5pm. Te conecta con recursos de educación y empleo.",
+    phone: "254-757-5022"
+  },
+  {
+    id: 32, name_en: "Church of the Open Door Food Pantry", name_es: "Despensa de la Iglesia Puerta Abierta",
+    category: "food",
+    desc_en: "Free food pantry services for low-income families in North Waco.",
+    desc_es: "Despensa gratuita para familias de bajos ingresos en el norte de Waco.",
+    tags: ["free","no-id","spanish","walk-in"],
+    neighborhood: "north-waco",
+    student: false,
+    note_en: "Walk-in. Hours vary — call or check their website before going.",
+    note_es: "Sin cita. Los horarios varían — llama antes de ir.",
+    phone: "254-799-2656"
+  },
+  {
+    id: 33, name_en: "Mission Waco Job Training (12:2 Renewal)", name_es: "Capacitación Laboral Mission Waco",
+    category: "financial",
+    desc_en: "Employment support and job training programs for low-income Waco residents.",
+    desc_es: "Apoyo de empleo y capacitación laboral para residentes de bajos ingresos.",
+    tags: ["no-proof","spanish"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Application required. Contact Mission Waco for current program schedule.",
+    note_es: "Se requiere solicitud. Contacta a Mission Waco para el horario actual.",
+    phone: "254-753-4900"
+  },
+  {
+    id: 34, name_en: "Oceans Healthcare (Geriatric Mental Health)", name_es: "Oceans Healthcare (Salud Mental Geriátrica)",
+    category: "mental",
+    desc_en: "Specialized psychiatric care for seniors. Most major insurance accepted.",
+    desc_es: "Atención psiquiátrica especializada para personas mayores.",
+    tags: ["spanish"],
+    neighborhood: "north-waco",
+    student: false,
+    note_en: "Seniors only. Appointment required. Mon–Fri 8am–5pm.",
+    note_es: "Solo para mayores. Se requiere cita. Lun–Vie 8am–5pm.",
+    phone: "254-848-2000"
+  },
+  {
+    id: 35, name_en: "Baylor Psychology Clinic", name_es: "Clínica de Psicología de Baylor",
+    category: "mental",
+    desc_en: "Reduced-cost counseling by Baylor psychology graduate students under licensed supervision.",
+    desc_es: "Consejería a bajo costo por estudiantes de posgrado supervisados por psicólogos.",
+    tags: ["no-proof","student"],
+    neighborhood: "near-baylor",
+    student: true,
+    note_en: "Open to community members too. Call for appointment and sliding-scale fees.",
+    note_es: "Abierto a la comunidad también. Llama para cita y tarifas.",
+    phone: "254-710-2067"
+  },
+  {
+    id: 36, name_en: "NAMI Waco (Mental Health Support Groups)", name_es: "NAMI Waco (Grupos de Apoyo de Salud Mental)",
+    category: "mental",
+    desc_en: "Free peer support groups for individuals and families living with mental illness.",
+    desc_es: "Grupos de apoyo entre pares gratuitos para personas y familias con enfermedades mentales.",
+    tags: ["free","no-id"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "No appointment needed for support groups. Check namiwaco.org for schedule.",
+    note_es: "Sin cita para grupos de apoyo. Consulta namiwaco.org para horarios.",
+    phone: "254-297-5477"
+  },
+  {
+    id: 37, name_en: "Advocacy Center for Crime Victims", name_es: "Centro de Advocacía para Víctimas de Crimen",
+    category: "mental",
+    desc_en: "24-hour crisis support, counseling, and legal advocacy for crime victims.",
+    desc_es: "Apoyo de crisis 24 horas, consejería y apoyo legal para víctimas de crimen.",
+    tags: ["free","no-id","spanish","walk-in"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Crisis line 24/7. Confidential and free.",
+    note_es: "Línea de crisis 24/7. Confidencial y gratuito.",
+    phone: "254-752-9330"
+  },
+  {
+    id: 38, name_en: "Mission Waco Express Care", name_es: "Atención Urgente Mission Waco",
+    category: "health",
+    desc_en: "Low-cost urgent care for uninsured residents. Walk-in, no appointment needed.",
+    desc_es: "Atención urgente de bajo costo para residentes sin seguro. Sin cita.",
+    tags: ["free","no-id","no-proof","spanish","walk-in"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Walk-in hours vary — call before going. No insurance needed.",
+    note_es: "Horarios de atención varían — llama antes de ir. Sin seguro.",
+    phone: "254-753-4900"
+  },
+  {
+    id: 39, name_en: "Clinica Hispana Waco", name_es: "Clínica Hispana Waco",
+    category: "health",
+    desc_en: "Spanish-language primary care clinic. Walk-in available Mon–Sat. Cash/self-pay only.",
+    desc_es: "Clínica de atención primaria en español. Sin cita Lun–Sáb. Solo pago en efectivo.",
+    tags: ["no-id","spanish","walk-in"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Spanish-speaking staff. Mon–Sat 9am–6pm. Self-pay, low cost.",
+    note_es: "Personal de habla hispana. Lun–Sáb 9am–6pm. Autofinanciado, bajo costo.",
+    phone: "254-732-3030"
+  },
+  {
+    id: 40, name_en: "Salvation Army Emergency Shelter", name_es: "Refugio de Emergencia Ejército de Salvación",
+    category: "housing",
+    desc_en: "Emergency homeless shelter for individuals. Intake required — call before arriving.",
+    desc_es: "Refugio de emergencia para personas sin hogar. Se requiere proceso de admisión.",
+    tags: ["free","no-id","spanish"],
+    neighborhood: "east-waco",
+    student: false,
+    note_en: "Open 24 hours. Call first to confirm space availability.",
+    note_es: "Abierto 24 horas. Llama primero para confirmar disponibilidad.",
+    phone: "254-756-7271"
+  },
+  {
+    id: 41, name_en: "The Hangar Youth Center", name_es: "Centro Juvenil The Hangar",
+    category: "health",
+    desc_en: "Free after-school programs and support for Waco teenagers.",
+    desc_es: "Programas gratuitos después de la escuela y apoyo para jóvenes de Waco.",
+    tags: ["free","no-id","walk-in"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "For teens only. Hours vary — check with the center directly.",
+    note_es: "Solo para jóvenes. Horarios varían — consulta directamente con el centro.",
+    phone: null
+  },
+  {
+    id: 42, name_en: "EOAC (Energy & Housing Assistance)", name_es: "EOAC (Ayuda para Energía y Vivienda)",
+    category: "housing",
+    desc_en: "Community action agency offering energy bill assistance and housing support programs.",
+    desc_es: "Agencia de acción comunitaria con ayuda para facturas de energía y vivienda.",
+    tags: ["no-proof","spanish"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Income-based eligibility. Call for appointment. Mon–Fri 8am–5pm.",
+    note_es: "Elegibilidad según ingresos. Llama para cita. Lun–Vie 8am–5pm.",
+    phone: "254-753-0331"
+  },
+  {
+    id: 43, name_en: "Baylor Law Veterans Clinic", name_es: "Clínica Legal para Veteranos de Baylor",
+    category: "financial",
+    desc_en: "Free legal help for veterans on benefits, disability, and civil matters.",
+    desc_es: "Ayuda legal gratuita para veteranos en beneficios, discapacidad y asuntos civiles.",
+    tags: ["free","no-proof","student"],
+    neighborhood: "near-baylor",
+    student: true,
+    note_en: "Veterans only. Call for intake appointment.",
+    note_es: "Solo para veteranos. Llama para cita de admisión.",
+    phone: "254-710-4244"
+  },
+  {
+    id: 44, name_en: "Texas Workforce Solutions Waco", name_es: "Soluciones de Fuerza Laboral Texas Waco",
+    category: "financial",
+    desc_en: "Free job placement, resume help, and employment services for job seekers.",
+    desc_es: "Colocación de empleo gratuita, ayuda con currículum y servicios de empleo.",
+    tags: ["free","no-proof","spanish"],
+    neighborhood: "south-waco",
+    student: false,
+    note_en: "Walk-in or appointment. Mon–Fri 8am–5pm.",
+    note_es: "Sin cita o con cita. Lun–Vie 8am–5pm.",
+    phone: "254-296-5300"
+  },
+  {
+    id: 45, name_en: "MCC Workforce Training", name_es: "Capacitación Laboral MCC",
+    category: "financial",
+    desc_en: "Workforce development and job training programs at McLennan Community College.",
+    desc_es: "Programas de desarrollo laboral y capacitación en McLennan Community College.",
+    tags: ["student","spanish"],
+    neighborhood: "north-waco",
+    student: true,
+    note_en: "Tuition-based but financial aid available. Call for program options.",
+    note_es: "Con costo pero hay ayuda financiera disponible. Llama para opciones.",
+    phone: "254-299-8888"
+  },
+  {
+    id: 46, name_en: "Habitat for Humanity Waco", name_es: "Hábitat para la Humanidad Waco",
+    category: "housing",
+    desc_en: "Home ownership programs for income-qualified families. Application required.",
+    desc_es: "Programas de propiedad de vivienda para familias con ingresos calificados.",
+    tags: ["no-proof","spanish"],
+    neighborhood: "downtown",
+    student: false,
+    note_en: "Long-term program — apply early. Mon–Fri 9am–5pm.",
+    note_es: "Programa a largo plazo — solicita con anticipación. Lun–Vie 9am–5pm.",
+    phone: "254-756-7575"
+  }
+];
+
+// ──────────────────────────────────────────────
+// QUIZ DATA
+// ──────────────────────────────────────────────
+const quizData = {
+  en: {
+    questions: [
+      {
+        q: "What do you need most right now?",
+        opts: [
+          { icon: "🍎", label: "Food or groceries", val: "food" },
+          { icon: "🏥", label: "Healthcare", val: "health" },
+          { icon: "💬", label: "Mental health support", val: "mental" },
+          { icon: "💰", label: "Financial help", val: "financial" },
+          { icon: "🏠", label: "Housing or shelter", val: "housing" },
+          { icon: "🔍", label: "Not sure yet", val: "any" }
+        ]
+      },
+      {
+        q: "Are you a Baylor or MCC student?",
+        opts: [
+          { icon: "🎓", label: "Yes, Baylor student", val: "baylor" },
+          { icon: "🎓", label: "Yes, MCC student", val: "mcc" },
+          { icon: "👤", label: "No, Waco resident", val: "resident" },
+          { icon: "🤷", label: "Prefer not to say", val: "any" }
+        ]
+      },
+      {
+        q: "Any concerns about eligibility?",
+        opts: [
+          { icon: "🪪", label: "I don't have an ID", val: "no-id" },
+          { icon: "📄", label: "No proof of income", val: "no-proof" },
+          { icon: "🗣", label: "I need Spanish support", val: "spanish" },
+          { icon: "✅", label: "None — I'm good", val: "none" }
+        ]
+      }
+    ],
+    results_title: "Based on your answers, here are your best options:",
+    restart: "← Start over"
+  },
+  es: {
+    questions: [
+      {
+        q: "¿Qué necesitas más ahora mismo?",
+        opts: [
+          { icon: "🍎", label: "Comida o víveres", val: "food" },
+          { icon: "🏥", label: "Atención médica", val: "health" },
+          { icon: "💬", label: "Apoyo de salud mental", val: "mental" },
+          { icon: "💰", label: "Ayuda financiera", val: "financial" },
+          { icon: "🏠", label: "Vivienda o refugio", val: "housing" },
+          { icon: "🔍", label: "No estoy seguro/a", val: "any" }
+        ]
+      },
+      {
+        q: "¿Eres estudiante de Baylor o MCC?",
+        opts: [
+          { icon: "🎓", label: "Sí, estudiante de Baylor", val: "baylor" },
+          { icon: "🎓", label: "Sí, estudiante de MCC", val: "mcc" },
+          { icon: "👤", label: "No, residente de Waco", val: "resident" },
+          { icon: "🤷", label: "Prefiero no decir", val: "any" }
+        ]
+      },
+      {
+        q: "¿Tienes alguna preocupación sobre elegibilidad?",
+        opts: [
+          { icon: "🪪", label: "No tengo identificación", val: "no-id" },
+          { icon: "📄", label: "Sin comprobante de ingresos", val: "no-proof" },
+          { icon: "🗣", label: "Necesito apoyo en español", val: "spanish" },
+          { icon: "✅", label: "Ninguna — estoy bien", val: "none" }
+        ]
+      }
+    ],
+    results_title: "Según tus respuestas, estas son tus mejores opciones:",
+    restart: "← Empezar de nuevo"
+  }
+};
+
+// ──────────────────────────────────────────────
+// STATE
+// ──────────────────────────────────────────────
+let lang = 'en';
+let currentCat = 'all';
+let currentHood = 'all';
+let quizStep = 0;
+let quizAnswers = [];
+let quizSelection = null;
+
+const t = (en, es) => lang === 'es' ? es : en;
+
+// ──────────────────────────────────────────────
+// LANGUAGE
+// ──────────────────────────────────────────────
+function setLang(l) {
+  lang = l;
+  document.getElementById('btn-en').classList.toggle('active', l === 'en');
+  document.getElementById('btn-es').classList.toggle('active', l === 'es');
+
+  // Hero
+  document.getElementById('hero-title').textContent = t('Find the help you need in Waco', 'Encuentra la ayuda que necesitas en Waco');
+  document.getElementById('hero-sub').textContent = t('Answer 3 quick questions — we\'ll show you the right resources for your situation.', 'Responde 3 preguntas rápidas — te mostraremos los recursos correctos para tu situación.');
+
+  // Student section
+  document.getElementById('student-title').innerHTML = t('For Baylor &amp; MCC Students', 'Para Estudiantes de Baylor y MCC');
+  document.getElementById('student-subtitle').textContent = t('Resources that work even with a student ID, no proof of income needed', 'Recursos que funcionan solo con ID estudiantil, sin comprobante de ingresos');
+  document.getElementById('sp-food').textContent = t('🍎 Free food', '🍎 Comida gratis');
+  document.getElementById('sp-mental').textContent = t('💬 Mental health', '💬 Salud mental');
+  document.getElementById('sp-health').textContent = t('🏥 Free clinic', '🏥 Clínica gratis');
+  document.getElementById('sp-financial').textContent = t('💰 Emergency funds', '💰 Fondos de emergencia');
+  document.getElementById('sp-housing').textContent = t('🏠 Housing help', '🏠 Ayuda de vivienda');
+
+  // Filter labels
+  document.getElementById('filter-cat-label').textContent = t('Category:', 'Categoría:');
+  document.getElementById('filter-hood-label').textContent = t('Neighborhood:', 'Vecindario:');
+
+  // Chips
+  document.querySelectorAll('.chip[data-en]').forEach(el => {
+    el.textContent = l === 'es' ? el.dataset.es : el.dataset.en;
+  });
+
+  // Verified
+  document.getElementById('verified-text').textContent = t('All listings student-verified · Updated March 2026', 'Todos los recursos verificados por estudiantes · Actualizado marzo 2026');
+
+  // Section title
+  document.getElementById('section-title-text').textContent = t('Resources', 'Recursos');
+
+  // No results
+  document.getElementById('no-results-text').textContent = t('No resources match this filter. Try a different combination.', 'Ningún recurso coincide con este filtro. Intenta una combinación diferente.');
+
+  // Re-render quiz and cards
+  quizStep = 0; quizAnswers = []; quizSelection = null;
+  document.getElementById('quiz-results').classList.remove('show');
+  document.getElementById('quiz-flow').style.display = '';
+  renderQuizStep();
+  renderCards();
+}
+
+// ──────────────────────────────────────────────
+// QUIZ
+// ──────────────────────────────────────────────
+function renderQuizStep() {
+  const qd = quizData[lang];
+  const step = qd.questions[quizStep];
+  quizSelection = null;
+
+  document.getElementById('quiz-step-label').textContent = t(`Step ${quizStep+1} of 3`, `Paso ${quizStep+1} de 3`);
+
+  // Progress
+  const pb = document.getElementById('progress-bar');
+  pb.innerHTML = '';
+  for (let i = 0; i < 3; i++) {
+    const d = document.createElement('div');
+    d.className = 'progress-dot' + (i < quizStep ? ' done' : i === quizStep ? ' active' : '');
+    pb.appendChild(d);
+  }
+
+  document.getElementById('quiz-q').textContent = step.q;
+  document.getElementById('btn-back').style.visibility = quizStep === 0 ? 'hidden' : 'visible';
+  document.getElementById('btn-next').textContent = quizStep === 2 ? t('Show results', 'Ver resultados') : t('Next →', 'Siguiente →');
+  document.getElementById('btn-next').classList.remove('ready');
+
+  const optsEl = document.getElementById('quiz-opts');
+  optsEl.innerHTML = '';
+  step.opts.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.innerHTML = `<span class="icon">${opt.icon}</span>${opt.label}`;
+    btn.onclick = () => {
+      document.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      quizSelection = opt.val;
+      document.getElementById('btn-next').classList.add('ready');
+    };
+    optsEl.appendChild(btn);
+  });
+}
+
+function quizNext() {
+  if (!quizSelection) return;
+  quizAnswers[quizStep] = quizSelection;
+  if (quizStep < 2) {
+    quizStep++;
+    renderQuizStep();
+  } else {
+    showQuizResults();
+  }
+}
+
+function quizBack() {
+  if (quizStep > 0) {
+    quizStep--;
+    renderQuizStep();
+  }
+}
+
+function quizRestart() {
+  quizStep = 0; quizAnswers = []; quizSelection = null;
+  document.getElementById('quiz-results').classList.remove('show');
+  document.getElementById('quiz-flow').style.display = '';
+  renderQuizStep();
+}
+
+function showQuizResults() {
+  const catAns = quizAnswers[0];
+  const studentAns = quizAnswers[1];
+  const eligAns = quizAnswers[2];
+
+  let filtered = resources.filter(r => {
+    if (catAns !== 'any' && r.category !== catAns) return false;
+    if ((studentAns === 'baylor' || studentAns === 'mcc') && !r.student && catAns !== 'any') return false;
+    if (eligAns === 'no-id' && !r.tags.includes('no-id')) return false;
+    if (eligAns === 'no-proof' && !r.tags.includes('no-proof')) return false;
+    if (eligAns === 'spanish' && !r.tags.includes('spanish')) return false;
+    return true;
+  });
+
+  if (filtered.length === 0) filtered = resources.filter(r => catAns === 'any' || r.category === catAns).slice(0, 3);
+  filtered = filtered.slice(0, 4);
+
+  document.getElementById('quiz-flow').style.display = 'none';
+  const res = document.getElementById('quiz-results');
+  res.classList.add('show');
+  document.getElementById('results-title').textContent = quizData[lang].results_title;
+
+  const list = document.getElementById('results-list');
+  list.innerHTML = '';
+  filtered.forEach(r => {
+    const el = document.createElement('div');
+    el.className = 'result-resource';
+    el.innerHTML = `<div class="result-resource-name">${lang === 'es' ? r.name_es : r.name_en}</div>
+      <div class="result-resource-desc">${lang === 'es' ? r.desc_es : r.desc_en}</div>`;
+    el.onclick = () => { filterCat(r.category); document.querySelector('main').scrollIntoView({behavior:'smooth'}); };
+    list.appendChild(el);
+  });
+
+  const restart = document.createElement('button');
+  restart.className = 'btn-restart';
+  restart.textContent = quizData[lang].restart;
+  restart.onclick = quizRestart;
+  list.appendChild(restart);
+}
+
+// ──────────────────────────────────────────────
+// FILTERS
+// ──────────────────────────────────────────────
+function filterCat(cat) {
+  currentCat = cat;
+  document.querySelectorAll('.chip:not([id^="hood"])').forEach(c => c.classList.remove('active'));
+  const el = document.getElementById('cat-' + cat);
+  if (el) el.classList.add('active');
+  renderCards();
+}
+
+function filterHood(hood) {
+  currentHood = hood;
+  document.querySelectorAll('[id^="hood-"]').forEach(c => c.classList.remove('active'));
+  const map = { all: 'hood-all', 'near-baylor': 'hood-baylor', downtown: 'hood-downtown', 'east-waco': 'hood-east', 'north-waco': 'hood-north', 'south-waco': 'hood-south', 'west-waco': 'hood-west' };
+  const el = document.getElementById(map[hood]);
+  if (el) el.classList.add('active');
+  renderCards();
+}
+
+function filterStudent(cat) {
+  filterCat(cat);
+  currentCat = cat;
+  document.getElementById('cat-student').classList.add('active');
+  renderCards(true);
+}
+
+// ──────────────────────────────────────────────
+// CARDS
+// ──────────────────────────────────────────────
+const tagInfo = {
+  'no-id': { en: '✓ No ID needed', es: '✓ Sin ID', cls: 'tag-no-id' },
+  'no-proof': { en: '✓ No income proof', es: '✓ Sin comprobante', cls: 'tag-no-proof' },
+  'free': { en: '✓ Free', es: '✓ Gratis', cls: 'tag-free' },
+  'student': { en: '🎓 Student', es: '🎓 Estudiante', cls: 'tag-student' },
+  'spanish': { en: '🗣 En Español', es: '🗣 En Español', cls: 'tag-spanish' },
+  'walk-in': { en: '⚡ Walk-in OK', es: '⚡ Sin cita', cls: 'tag-walk-in' },
+  'waitlist': { en: '⏳ Waitlist', es: '⏳ Lista de espera', cls: 'tag-waitlist' }
+};
+const catLabels = {
+  food: { en: 'Food', es: 'Comida', cls: 'cat-food' },
+  health: { en: 'Health', es: 'Salud', cls: 'cat-health' },
+  mental: { en: 'Mental Health', es: 'Salud Mental', cls: 'cat-mental' },
+  housing: { en: 'Housing', es: 'Vivienda', cls: 'cat-housing' },
+  financial: { en: 'Financial', es: 'Finanzas', cls: 'cat-financial' },
+  legal: { en: 'Legal', es: 'Legal', cls: 'cat-financial' },
+  crisis: { en: 'Crisis', es: 'Crisis', cls: 'cat-mental' }
+};
+const hoodLabels = {
+  'near-baylor': { en: '📍 Near Baylor', es: '📍 Cerca de Baylor' },
+  'downtown': { en: '📍 Downtown', es: '📍 Centro' },
+  'east-waco': { en: '📍 East Waco', es: '📍 Este de Waco' },
+  'north-waco': { en: '📍 North Waco', es: '📍 Norte de Waco' },
+  'south-waco': { en: '📍 South Waco', es: '📍 Sur de Waco' },
+  'west-waco': { en: '📍 West Waco', es: '📍 Oeste de Waco' }
+};
+
+function renderCards(studentOnly = false) {
+  const grid = document.getElementById('cards-grid');
+  let filtered = resources.filter(r => {
+    const catMatch = currentCat === 'all' || currentCat === r.category ||
+      (currentCat === 'student' && r.student) ||
+      (currentCat === 'spanish' && r.tags.includes('spanish'));
+    const hoodMatch = currentHood === 'all' || r.neighborhood === currentHood;
+    const studentMatch = !studentOnly || r.student;
+    return catMatch && hoodMatch && studentMatch;
+  });
+
+  grid.innerHTML = '';
+  filtered.forEach(r => {
+    const name = lang === 'es' ? r.name_es : r.name_en;
+    const desc = lang === 'es' ? r.desc_es : r.desc_en;
+    const note = lang === 'es' ? r.note_es : r.note_en;
+    const cat = catLabels[r.category];
+    const hood = hoodLabels[r.neighborhood];
+
+    const tagsHtml = r.tags.map(tg => {
+      const ti = tagInfo[tg];
+      return ti ? `<span class="tag ${ti.cls}">${lang === 'es' ? ti.es : ti.en}</span>` : '';
+    }).join('');
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      ${r.student ? `<div class="student-badge">${t('Student', 'Estudiante')}</div>` : ''}
+      <div class="card-top">
+        <div class="card-name">${name}</div>
+        <div class="card-category ${cat.cls}">${lang === 'es' ? cat.es : cat.en}</div>
+      </div>
+      <div class="card-desc">${desc}</div>
+      <div class="card-tags">${tagsHtml}</div>
+      <div class="card-footer">
+        <div class="card-neighborhood">${lang === 'es' ? hood.es : hood.en}</div>
+        ${note ? `<div class="card-note">"${note}"</div>` : ''}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  const count = document.getElementById('count-badge');
+  count.textContent = filtered.length;
+
+  const noRes = document.getElementById('no-results');
+  noRes.classList.toggle('show', filtered.length === 0);
+}
+
+// ──────────────────────────────────────────────
+// INIT
+// ──────────────────────────────────────────────
+renderQuizStep();
+renderCards();
+</script>
+</body>
+</html>
