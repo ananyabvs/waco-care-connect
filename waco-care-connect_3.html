@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A free, bilingual (English/Spanish) directory of Waco resources for food, housing, healthcare, immigration, mental health, and family support." />
+  <meta property="og:title" content="Waco Care Connect — Find help in Waco" />
+  <meta property="og:description" content="Free bilingual directory of Waco resources. 3 quick questions, real help." />
+  <meta property="og:type" content="website" />
+  <title>Waco Care Connect — Find help in Waco</title>
+
+  <!-- GoatCounter Analytics -->
+  <script data-goatcounter="https://waco.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --navy:     #1a2744;
+      --navy-mid: #243358;
+      --navy-lt:  #edf0f7;
+      --gold:     #d4a017;
+      --gold-lt:  #fef9ec;
+      --teal:     #0d7a6e;
+      --teal-lt:  #e6f4f2;
+      --ink:      #1a1f2e;
+      --ink-mid:  #3d4459;
+      --ink-soft: #6b7280;
+      --border:   #e2e0dc;
+      --bg:       #f8f9fb;
+      --white:    #ffffff;
+      --radius:   10px;
+      --shadow:   0 2px 18px rgba(26,39,68,.10);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Source Sans 3', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+    a { color: var(--teal); }
+
+    .skip { position:absolute; left:-9999px; top:4px; }
+    .skip:focus { left:16px; background:var(--navy); color:#fff; padding:6px 12px; border-radius:6px; z-index:999; }
+
+    /* Header */
+    header {
+      background: var(--navy);
+      padding: 16px 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,.25);
+    }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: #fff; letter-spacing: .01em; }
+    .logo span { color: var(--gold); }
+    .lang-btns { display:flex; gap:8px; }
+    .lang-btn {
+      font-size:.8rem; font-weight:600; padding:5px 14px;
+      border:1.5px solid rgba(255,255,255,.3); border-radius:20px;
+      background:transparent; cursor:pointer; color:rgba(255,255,255,.8);
+      transition: all .15s; font-family: inherit;
+    }
+    .lang-btn.active, .lang-btn:hover { border-color:#fff; color:#fff; background:rgba(255,255,255,.12); }
+
+    /* Hero */
+    .hero-wrap {
+      background: var(--navy);
+      padding: 48px 28px 56px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-wrap::after {
+      content:'';
+      position:absolute; bottom:0; left:0; right:0; height:32px;
+      background: var(--bg);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .hero-wrap h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem,5vw,2.9rem);
+      color: #fff; line-height: 1.2; margin-bottom: 14px;
+    }
+    .hero-wrap h1 em { color: var(--gold); font-style:normal; }
+    .hero-wrap p { color: rgba(255,255,255,.72); font-size:1.05rem; max-width:520px; margin:0 auto; }
+
+    main { max-width: 920px; margin: 0 auto; padding: 0 20px 120px; }
+
+    /* Filter card */
+    .filter-card {
+      background: var(--white); border:1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+      box-shadow: var(--shadow); margin-bottom: 28px;
+    }
+    .filter-card h2 { font-family:'Playfair Display',serif; font-size:1.2rem; margin-bottom:4px; color:var(--navy); }
+    .filter-card .sub { font-size:.85rem; color:var(--ink-soft); margin-bottom:20px; }
+    .filter-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; }
+    .filter-group label { display:block; font-size:.75rem; font-weight:600; color:var(--ink-mid); text-transform:uppercase; letter-spacing:.07em; margin-bottom:6px; }
+    select {
+      width:100%; padding:10px 14px; border:1.5px solid var(--border);
+      border-radius:8px; font-family:inherit; font-size:.93rem;
+      background:var(--bg); color:var(--ink); cursor:pointer; appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 12px center;
+    }
+    select:focus { outline:none; border-color:var(--navy); }
+    .filter-actions { display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
+    .btn-primary { background:var(--navy); color:#fff; border:none; padding:11px 26px; border-radius:8px; font-family:inherit; font-size:.95rem; font-weight:600; cursor:pointer; transition:background .15s; }
+    .btn-primary:hover { background:var(--navy-mid); }
+    .btn-ghost { background:transparent; color:var(--ink-soft); border:1.5px solid var(--border); padding:11px 20px; border-radius:8px; font-family:inherit; font-size:.95rem; cursor:pointer; transition:all .15s; }
+    .btn-ghost:hover { border-color:var(--ink-soft); color:var(--ink); }
+
+    /* Results */
+    .results-header { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px; }
+    .results-header h2 { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--navy); }
+    .results-count { font-size:.85rem; color:var(--ink-soft); }
+
+    .tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+    .tab { padding:6px 15px; border-radius:20px; border:1.5px solid var(--border); background:var(--white); font-size:.82rem; font-weight:600; cursor:pointer; color:var(--ink-mid); transition:all .15s; font-family:inherit; }
+    .tab.active, .tab:hover { background:var(--navy); border-color:var(--navy); color:#fff; }
+
+    .empty-state { text-align:center; padding:40px 20px; color:var(--ink-soft); border:1.5px dashed var(--border); border-radius:var(--radius); }
+    .resource-grid { display:grid; gap:14px; }
+
+    .card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); padding:20px 22px; box-shadow:0 1px 6px rgba(0,0,0,.04); transition:box-shadow .15s, transform .1s; }
+    .card:hover { box-shadow:var(--shadow); transform:translateY(-1px); }
+    .card-header { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap; }
+    .card-name { font-weight:600; font-size:1rem; color:var(--navy); }
+    .badge { font-size:.7rem; font-weight:700; padding:3px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:.05em; white-space:nowrap; }
+    .badge-food        { background:#e8f5e9; color:#2e7d32; }
+    .badge-housing     { background:#e3f2fd; color:#1565c0; }
+    .badge-health      { background:#fce4ec; color:#ad1457; }
+    .badge-mental      { background:#f3e5f5; color:#6a1b9a; }
+    .badge-immigration { background:#fff8e1; color:#e65100; }
+    .badge-family      { background:#e8eaf6; color:#283593; }
+    .badge-safety      { background:#fbe9e7; color:#bf360c; }
+    .badge-seniors     { background:#e0f7fa; color:#006064; }
+    .badge-veterans    { background:#f1f8e9; color:#33691e; }
+
+    .card-desc { font-size:.9rem; color:var(--ink-soft); margin:8px 0 10px; }
+    .card-meta { display:flex; gap:14px; flex-wrap:wrap; font-size:.82rem; color:var(--ink-soft); }
+    .card-actions { margin-top:12px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+    .card-link { font-size:.82rem; font-weight:600; padding:5px 13px; border-radius:6px; text-decoration:none; border:1.5px solid var(--border); color:var(--teal); transition:all .15s; background:none; cursor:pointer; font-family:inherit; }
+    .card-link:hover { background:var(--teal-lt); border-color:var(--teal); }
+    .card-link.phone { color:var(--ink-mid); }
+    .card-langs { font-size:.73rem; color:var(--ink-soft); background:var(--bg); padding:3px 9px; border-radius:10px; border:1px solid var(--border); }
+
+    /* Report btn */
+    #report-btn {
+      position:fixed; bottom:24px; right:24px; z-index:200;
+      background:var(--navy); color:#fff; border:none;
+      padding:11px 18px; border-radius:40px; font-family:inherit;
+      font-size:.85rem; font-weight:700; cursor:pointer;
+      box-shadow:0 4px 16px rgba(26,39,68,.45);
+      transition:background .15s, transform .1s;
+      display:flex; align-items:center; gap:7px;
+    }
+    #report-btn:hover { background:var(--navy-mid); transform:scale(1.03); }
+
+    /* Modal */
+    .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:300; align-items:center; justify-content:center; padding:20px; }
+    .modal-overlay.open { display:flex; }
+    .modal { background:var(--white); border-radius:14px; padding:32px; max-width:500px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,.25); position:relative; max-height:90vh; overflow-y:auto; }
+    .modal h2 { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--navy); margin-bottom:6px; }
+    .modal .sub { font-size:.85rem; color:var(--ink-soft); margin-bottom:20px; }
+    .modal label { display:block; font-size:.75rem; font-weight:700; color:var(--ink-mid); text-transform:uppercase; letter-spacing:.07em; margin-bottom:5px; margin-top:14px; }
+    .modal input, .modal select, .modal textarea { width:100%; padding:10px 14px; border:1.5px solid var(--border); border-radius:8px; font-family:inherit; font-size:.93rem; background:var(--bg); color:var(--ink); }
+    .modal textarea { min-height:90px; resize:vertical; }
+    .modal input:focus, .modal select:focus, .modal textarea:focus { outline:none; border-color:var(--navy); }
+    .modal-actions { display:flex; gap:10px; margin-top:20px; justify-content:flex-end; }
+    .modal-close { position:absolute; top:14px; right:18px; background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--ink-soft); line-height:1; }
+    .form-success { display:none; text-align:center; padding:20px 0; }
+    .form-success .check { font-size:2.5rem; margin-bottom:10px; }
+    .form-error-msg { display:none; color:#c0392b; font-size:.85rem; margin-top:8px; }
+
+    /* Footer */
+    footer { background:var(--navy); color:rgba(255,255,255,.65); text-align:center; padding:30px 24px; font-size:.84rem; margin-top:40px; }
+    footer p + p { margin-top:6px; }
+    footer strong { color:#fff; }
+    footer a { color:var(--gold); }
+
+    @media(max-width:520px) {
+      .filter-grid { grid-template-columns:1fr; }
+      main { padding:0 16px 100px; }
+    }
+  </style>
+</head>
+<body>
+<a href="#main" class="skip">Skip to content</a>
+
+<header>
+  <div class="logo">Waco <span>Care</span> Connect</div>
+  <div class="lang-btns">
+    <button class="lang-btn active" onclick="setLang('en')">English</button>
+    <button class="lang-btn" onclick="setLang('es')">Español</button>
+  </div>
+</header>
+
+<div class="hero-wrap">
+  <h1>Find help in <em>Waco.</em></h1>
+  <p>Free. Bilingual. Built for McLennan County. Three quick questions and we'll show you the right resources — no account, no judgment.</p>
+</div>
+
+<main id="main">
+  <section class="filter-card" aria-label="Filter resources">
+    <h2>Three quick questions</h2>
+    <p class="sub">Tres preguntas rápidas — tell us a little so we can show what's most relevant.</p>
+    <div class="filter-grid">
+      <div class="filter-group">
+        <label for="sel-need">What do you need most?</label>
+        <select id="sel-need">
+          <option value="">Show me everything</option>
+          <option value="food">Food</option>
+          <option value="housing">Housing / Shelter</option>
+          <option value="health">Healthcare</option>
+          <option value="mental">Mental health</option>
+          <option value="immigration">Immigration / Legal</option>
+          <option value="family">Family / Kids</option>
+          <option value="safety">Safety / Domestic violence</option>
+          <option value="seniors">Senior services</option>
+          <option value="veterans">Veterans</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="sel-area">What part of Waco?</label>
+        <select id="sel-area">
+          <option value="">Anywhere in McLennan County</option>
+          <option value="downtown">Downtown Waco</option>
+          <option value="north">North Waco</option>
+          <option value="east">East Waco</option>
+          <option value="south">South Waco</option>
+          <option value="west">West Waco / Woodway</option>
+          <option value="county">Outside Waco (McLennan County)</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="sel-lang">Preferred language?</label>
+        <select id="sel-lang">
+          <option value="">Any</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+        </select>
+      </div>
+    </div>
+    <div class="filter-actions">
+      <button class="btn-primary" onclick="applyFilters()">Show me resources</button>
+      <button class="btn-ghost" onclick="clearFilters()">Clear</button>
+    </div>
+  </section>
+
+  <section id="results-section" aria-label="Resources">
+    <div class="results-header">
+      <h2>Results</h2>
+      <span class="results-count" id="results-count"></span>
+    </div>
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-cat="" onclick="filterTab(this,'')">All</button>
+      <button class="tab" data-cat="food" onclick="filterTab(this,'food')">🍎 Food</button>
+      <button class="tab" data-cat="housing" onclick="filterTab(this,'housing')">🏠 Housing</button>
+      <button class="tab" data-cat="health" onclick="filterTab(this,'health')">🏥 Health</button>
+      <button class="tab" data-cat="mental" onclick="filterTab(this,'mental')">🧠 Mental health</button>
+      <button class="tab" data-cat="immigration" onclick="filterTab(this,'immigration')">🌎 Immigration</button>
+      <button class="tab" data-cat="family" onclick="filterTab(this,'family')">👨‍👩‍👧 Family</button>
+      <button class="tab" data-cat="safety" onclick="filterTab(this,'safety')">🛡️ DV / Safety</button>
+      <button class="tab" data-cat="seniors" onclick="filterTab(this,'seniors')">👴 Seniors</button>
+      <button class="tab" data-cat="veterans" onclick="filterTab(this,'veterans')">🎖️ Veterans</button>
+    </div>
+    <div id="results-grid" class="resource-grid"></div>
+  </section>
+</main>
+
+<footer>
+  <p>Waco Care Connect — built by Ananya Bharathapudi. A free community tool. Not affiliated with the City of Waco.</p>
+  <p>If you're in immediate danger, call <strong>911</strong>. For 24/7 help, call <strong>211</strong> or visit <a href="https://www.211texas.org" target="_blank" rel="noopener">211 Texas</a>.</p>
+  <p>Found an error? Use the button below or email <a href="mailto:ananyabvs@gmail.com">ananyabvs@gmail.com</a>.</p>
+</footer>
+
+<button id="report-btn" onclick="openModal()" aria-haspopup="dialog">⚠️ Report an error / Reportar</button>
+
+<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">×</button>
+    <h2 id="modal-title">Report an error</h2>
+    <p class="sub">Help us keep this directory accurate. / Ayúdanos a mantenerlo preciso.</p>
+    <div id="modal-form-body">
+      <form id="error-form" action="https://formspree.io/f/meedgprv" method="POST">
+        <label for="err-type">What's wrong?</label>
+        <select id="err-type" name="issue_type" required>
+          <option value="">— select —</option>
+          <option value="Phone number wrong">Phone number wrong</option>
+          <option value="Place is closed">Place is closed</option>
+          <option value="Hours wrong">Hours wrong</option>
+          <option value="Language info wrong">Language info wrong</option>
+          <option value="A resource is missing">A resource is missing</option>
+          <option value="Other">Other</option>
+        </select>
+        <label for="err-resource">Which resource?</label>
+        <input type="text" id="err-resource" name="resource_name" placeholder="Name of the resource..." />
+        <label for="err-detail">Details</label>
+        <textarea id="err-detail" name="details" placeholder="Tell us what's wrong..."></textarea>
+        <label for="err-email">Your email (optional)</label>
+        <input type="email" id="err-email" name="_replyto" placeholder="you@example.com" />
+        <input type="hidden" name="_subject" value="Waco Care Connect — error report" />
+        <p id="form-err-msg" class="form-error-msg">Something went wrong. Please try again or email ananyabvs@gmail.com.</p>
+        <div class="modal-actions">
+          <button type="button" class="btn-ghost" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn-primary">Send report</button>
+        </div>
+      </form>
+    </div>
+    <div class="form-success" id="form-success">
+      <div class="check">✅</div>
+      <p><strong>Thank you!</strong> We'll review and fix it soon.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const RESOURCES = [
+  // ── FOOD ─────────────────────────────────────────────────────────────
+  { id:"caritas", name:"Caritas of Waco", cat:"food", areas:["downtown","south","east"], langs:["en","es"], desc:"Emergency food pantry serving McLennan County residents. Provides groceries, toiletries, and referrals to other social services. Walk-in and appointment options available.", phone:"(254) 753-4593", website:"https://www.caritas-waco.org", hours:"Mon–Fri 9am–12pm" },
+  { id:"salvation-food", name:"The Salvation Army of Waco — Food Pantry", cat:"food", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Emergency food assistance and hot meals for individuals and families in need. Also provides shelter and utility assistance.", phone:"(254) 753-3455", website:"https://www.salvationarmytexas.org/waco", hours:"Mon–Fri 9am–12pm; call for pantry schedule" },
+  { id:"shepherd-heart", name:"Shepherd's Heart Food Pantry", cat:"food", areas:["south","downtown"], langs:["en","es"], desc:"Free food pantry operated by a faith community, serving south Waco and surrounding areas. Open to anyone in need, no documentation required.", phone:"(254) 296-0499", website:"https://www.shepherdsheartwaco.org", hours:"Tue & Thu 9am–11am" },
+  { id:"loaves-fishes-waco", name:"Loaves and Fishes Waco — Free Meals", cat:"food", areas:["downtown"], langs:["en","es"], desc:"Provides free hot meals to anyone in need in downtown Waco. No eligibility requirements — all are welcome at the table.", phone:"(254) 753-2848", website:"https://www.loavesfisheswaco.org", hours:"Mon–Fri 11:30am–1pm" },
+  { id:"mission-waco-pantry", name:"Mission Waco — Market Place", cat:"food", areas:["downtown","east","north"], langs:["en","es"], desc:"Community marketplace providing free groceries and household items to low-income Waco residents. Also offers job training and other wraparound services.", phone:"(254) 753-6853", website:"https://www.missionwaco.org", hours:"Mon–Fri 9am–4pm" },
+  { id:"central-tx-food-bank", name:"Central Texas Food Bank — Waco Distribution", cat:"food", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Regional food bank distributing food through partner agencies across McLennan County. Find nearest partner distribution at their website.", phone:"(512) 282-2111", website:"https://www.centraltexasfoodbank.org", hours:"Varies by partner site" },
+  { id:"urban-ministry-waco", name:"Waco Urban Ministry — Food Pantry", cat:"food", areas:["downtown","east"], langs:["en","es"], desc:"Provides food, clothing, and emergency assistance to low-income Waco residents. Faith-rooted, open to all.", phone:"(254) 754-3591", website:"https://www.wacourbanministry.org", hours:"Mon–Fri 9am–12pm" },
+
+  // ── HOUSING ──────────────────────────────────────────────────────────
+  { id:"mission-waco-housing", name:"Mission Waco — Shepherd's Heart Village", cat:"housing", areas:["downtown","east"], langs:["en","es"], desc:"Transitional and supportive housing for adults experiencing homelessness. Case management, recovery support, and job training included.", phone:"(254) 753-6853", website:"https://www.missionwaco.org", hours:"Call Mon–Fri 9am–4pm" },
+  { id:"salvation-shelter", name:"The Salvation Army — Emergency Shelter", cat:"housing", areas:["downtown"], langs:["en","es"], desc:"Emergency shelter for men, women, and families. Provides meals, case management, and referrals. Call ahead to confirm availability.", phone:"(254) 753-3455", website:"https://www.salvationarmytexas.org/waco", hours:"Call for intake hours" },
+  { id:"cove-waco", name:"The Cove — Teen Resource Center", cat:"housing", areas:["downtown","east","south"], langs:["en","es"], desc:"Drop-in center and emergency shelter specifically for teens and young adults (ages 11–21) experiencing homelessness or housing instability in Waco.", phone:"(254) 741-0081", website:"https://www.thecovewaco.org", hours:"Mon–Fri 9am–5pm; call for after-hours" },
+  { id:"neighborworks-waco", name:"NeighborWorks Waco — Housing Programs", cat:"housing", areas:["downtown","east","north","south"], langs:["en","es"], desc:"Homeownership counseling, home repair assistance, and neighborhood revitalization for low-income Waco residents. HUD-approved housing counseling.", phone:"(254) 753-2962", website:"https://www.nw-waco.org", hours:"Mon–Fri 8am–5pm" },
+  { id:"habitat-waco", name:"Habitat for Humanity Waco", cat:"housing", areas:["downtown","east","north","south","county"], langs:["en","es"], desc:"Affordable homeownership for income-qualifying families through a sweat equity model. Also provides critical home repairs for low-income homeowners.", phone:"(254) 741-0800", website:"https://www.wacohabitat.org", hours:"Mon–Fri 8am–5pm; ReStore open Mon–Sat" },
+  { id:"waco-pha", name:"Waco Housing Authority — Section 8 / Public Housing", cat:"housing", areas:["downtown","north","east","south","west"], langs:["en","es"], desc:"Administers Section 8 Housing Choice Vouchers and manages public housing units in Waco. Waitlist openings vary — check website for current status.", phone:"(254) 753-1521", website:"https://www.wacopha.org", hours:"Mon–Fri 8am–5pm" },
+  { id:"heart-homeless", name:"Heart of Texas Homeless Coalition — Coordinated Entry", cat:"housing", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Waco's coordinated entry system for individuals experiencing homelessness. Connects people to the most appropriate housing resources in McLennan County.", phone:"(254) 300-4376", website:"https://www.hotxhomeless.org", hours:"Mon–Fri 8am–5pm" },
+
+  // ── HEALTH ───────────────────────────────────────────────────────────
+  { id:"waco-family-med", name:"Waco Family Medicine / Heart of Texas Community Health Center", cat:"health", areas:["downtown","south","east","north","county"], langs:["en","es"], desc:"Federally Qualified Health Center providing affordable primary care, dental, behavioral health, and OB/GYN services regardless of ability to pay. Sliding fee scale available.", phone:"(254) 313-8000", website:"https://www.wacofamilymedicine.org", hours:"Mon–Fri 8am–5pm; some extended hours" },
+  { id:"bsw-waco", name:"Baylor Scott & White Medical Center — Waco", cat:"health", areas:["downtown","north","west"], langs:["en","es"], desc:"Full-service hospital with emergency care, specialty services, and financial assistance programs for uninsured patients. Social workers on staff to connect to community resources.", phone:"(254) 710-8000", website:"https://www.bswhealth.com/locations/hillcrest-medical-center", hours:"24/7 Emergency; clinic hours vary" },
+  { id:"providence-waco", name:"Ascension Providence Hospital — Waco", cat:"health", areas:["downtown","south","west"], langs:["en","es"], desc:"Community hospital serving Waco and Central Texas. Financial counseling and charity care available for qualifying uninsured patients.", phone:"(254) 751-4000", website:"https://www.providence.net/waco", hours:"24/7 Emergency; clinic hours vary" },
+  { id:"mclennan-health", name:"McLennan County Health District", cat:"health", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"County public health services including immunizations, STI testing, TB screening, and WIC enrollment. Services available regardless of insurance status.", phone:"(254) 750-5410", website:"https://www.mclennan.us/health", hours:"Mon–Fri 8am–5pm" },
+  { id:"carepoint-waco", name:"CarePoint Community Health Center", cat:"health", areas:["south","downtown"], langs:["en","es"], desc:"Low-cost primary care clinic serving uninsured and underinsured residents of south Waco and McLennan County.", phone:"(254) 754-2273", website:"https://www.carepointhealth.org", hours:"Mon–Fri 8am–5pm; call for appointment" },
+  { id:"nfp-bsw", name:"Nurse-Family Partnership — Baylor Scott & White", cat:"health", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Free home visiting program for first-time mothers from pregnancy through baby's second birthday. Public health nurses provide health education and connect families to resources.", phone:"(254) 710-3880", website:"https://www.bswhealth.com", hours:"Mon–Fri 8am–5pm" },
+
+  // ── MENTAL HEALTH ─────────────────────────────────────────────────────
+  { id:"centex-bhs", name:"Centex Behavioral Healthcare", cat:"mental", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Outpatient mental health and substance use treatment for McLennan County residents. Serves adults and children. Sliding fee scale; accepts Medicaid.", phone:"(254) 752-3451", website:"https://www.centexbhs.org", hours:"Mon–Fri 8am–5pm; crisis line 24/7" },
+  { id:"waco-center-youth", name:"Waco Center for Youth", cat:"mental", areas:["downtown","north","east","south","county"], langs:["en","es"], desc:"Residential and outpatient mental health and substance use treatment for youth ages 3–17. Accepts Medicaid, CHIP, and private insurance; financial assistance available.", phone:"(254) 756-2171", website:"https://www.wacocenterforyouth.org", hours:"Call for intake hours" },
+  { id:"harris-center-waco", name:"Harris Center — Waco Outreach (MHMR)", cat:"mental", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"State-funded mental health services for uninsured or underinsured Waco residents with serious mental illness. Crisis services available 24/7.", phone:"(254) 750-5920", website:"https://www.theharriscenter.org", hours:"Mon–Fri 8am–5pm; 24/7 crisis line" },
+  { id:"talitha-koum", name:"Talitha Koum Institute", cat:"mental", areas:["downtown","east","south"], langs:["en","es"], desc:"Therapeutic nurture and early childhood mental health for young children (birth to 5) and their families affected by trauma and adversity.", phone:"(254) 741-0046", website:"https://www.talithakoum.org", hours:"Mon–Fri 8:30am–4:30pm" },
+  { id:"advocacy-unlimited", name:"Advocacy Unlimited — Peer Support Waco", cat:"mental", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Peer support services for adults living with mental health challenges. Staffed by individuals with lived experience. Drop-in and group programs available.", phone:"(254) 753-8271", website:"https://www.txadvocacy.org", hours:"Mon–Fri 8am–5pm" },
+
+  // ── IMMIGRATION / LEGAL ───────────────────────────────────────────────
+  { id:"la-puerta", name:"La Puerta Waco", cat:"immigration", areas:["downtown","south","east","county"], langs:["en","es"], desc:"Accompaniment and advocacy for migrants, asylum seekers, and refugees in the Waco area. Case management, legal referrals, and community support.", phone:"(254) 232-4028", website:"https://www.lapuertawaco.org", hours:"By appointment; call or email" },
+  { id:"estrella-waco", name:"Estrella Community Services", cat:"immigration", areas:["south","downtown","east"], langs:["en","es"], desc:"Latino-focused community services including immigration assistance, workforce development, and social services navigation for families in Waco.", phone:"(254) 753-1620", website:"https://www.estrellaservices.org", hours:"Mon–Fri 9am–5pm" },
+  { id:"tlsc-waco", name:"Texas Legal Services Center — Central Texas", cat:"immigration", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Free civil legal aid for low-income Texans covering immigration, housing, benefits, consumer, and family law. Priority given to seniors and domestic violence survivors.", phone:"(512) 477-6000", website:"https://www.tlsc.org", hours:"Mon–Fri 9am–5pm; intake by phone" },
+  { id:"baylor-law-clinic", name:"Baylor Law School — Civil Practice Clinics", cat:"immigration", areas:["downtown"], langs:["en","es"], desc:"Student-run legal clinics providing free civil legal assistance to low-income Waco residents under faculty supervision. Covers immigration, family, and consumer law.", phone:"(254) 710-1911", website:"https://www.baylor.edu/law/clinics", hours:"Mon–Fri 8am–5pm; call for appointment" },
+  { id:"waco-immigrant-coalition", name:"Waco Immigrant Coalition", cat:"immigration", areas:["downtown","south","east","north","county"], langs:["en","es"], desc:"Community coalition supporting immigrant rights and connecting immigrant families to legal, health, and social services in McLennan County.", phone:"", website:"https://www.wacoimmigrantcoalition.org", hours:"Contact through website" },
+
+  // ── FAMILY / KIDS ─────────────────────────────────────────────────────
+  { id:"eoac-headstart", name:"EOAC — Head Start & Early Head Start", cat:"family", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Free early childhood education and family support for income-qualifying families with children birth to 5. Includes health screenings, meals, and parent engagement.", phone:"(254) 756-7637", website:"https://www.eoacwaco.org", hours:"Mon–Fri 7:30am–5:30pm during school year" },
+  { id:"casa-mclennan", name:"CASA of McLennan County", cat:"family", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Volunteer court-appointed advocates for children in the foster care system. Also connects foster families and youth to community resources.", phone:"(254) 756-6673", website:"https://www.casamclennan.org", hours:"Mon–Fri 8am–5pm" },
+  { id:"mch-waco", name:"Methodist Children's Home — Waco Campus", cat:"family", areas:["north","west","county"], langs:["en","es"], desc:"Residential care, foster care, and family support services for children and youth in McLennan County. Accepts Medicaid and CHIP.", phone:"(254) 750-1241", website:"https://www.mch.org", hours:"Mon–Fri 8am–5pm" },
+  { id:"compassion-waco", name:"Compassion Waco — Youth Mentorship", cat:"family", areas:["downtown","east","south"], langs:["en","es"], desc:"Mentorship programs for youth in East Waco, connecting young people with adult mentors and providing after-school support and community resources.", phone:"(254) 741-0800", website:"https://www.compassionwaco.org", hours:"Mon–Fri 3pm–6pm; varies by site" },
+  { id:"cis-waco", name:"Communities In Schools of the Heart of Texas", cat:"family", areas:["downtown","north","east","south"], langs:["en","es"], desc:"School-based support for at-risk students and their families in Waco ISD. Site coordinators connect students to community resources, tutoring, mentoring, and crisis support.", phone:"(254) 741-5815", website:"https://www.cisheartoftexas.org", hours:"School hours; contact through site coordinator" },
+  { id:"carenet-waco", name:"CareNet Pregnancy Center of Central Texas", cat:"family", areas:["downtown","north","west"], langs:["en","es"], desc:"Free pregnancy tests, ultrasounds, and resources for women navigating unexpected pregnancies. Connects to community support for new parents.", phone:"(254) 752-0990", website:"https://www.carenetcentraltx.org", hours:"Mon–Fri 9am–5pm; some Sat hours" },
+
+  // ── DV / SAFETY ───────────────────────────────────────────────────────
+  { id:"family-abuse-center", name:"Family Abuse Center Waco", cat:"safety", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"24/7 crisis hotline, emergency shelter, transitional housing, legal advocacy, and counseling for domestic violence survivors in McLennan County. Confidential and free.", phone:"(254) 752-8922", website:"https://www.familyabusecenter.org", hours:"24/7 crisis hotline" },
+  { id:"advocacy-center-waco", name:"Advocacy Center for Crime Victims & Children", cat:"safety", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Trauma-informed advocacy, counseling, and legal help for crime victims and children who have experienced abuse or violence in McLennan County.", phone:"(254) 752-8220", website:"https://www.advocacycenter.org", hours:"Mon–Fri 8am–5pm; 24/7 on-call" },
+
+  // ── SENIORS ───────────────────────────────────────────────────────────
+  { id:"waco-senior-advocacy", name:"Waco Advocacy Center for Seniors", cat:"seniors", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Advocacy, legal assistance, and community support for seniors in McLennan County. Provides help with elder abuse, fraud, and navigating government programs.", phone:"(254) 752-5574", website:"https://www.wacosenioradvocacy.org", hours:"Mon–Fri 8:30am–5pm" },
+  { id:"bosque-valley-aaa", name:"Heart of Texas Council of Governments — Area Agency on Aging", cat:"seniors", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"State-funded senior services including Meals on Wheels, caregiver support, transportation, legal aid referrals, and senior center programs across McLennan County.", phone:"(254) 292-1800", website:"https://www.hotcog.org", hours:"Mon–Fri 8am–5pm" },
+  { id:"aarp-waco", name:"AARP Texas — Waco Area Chapter", cat:"seniors", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Free tax preparation (VITA), Medicare counseling, fraud prevention, and community programs for adults 50+ in the Waco area.", phone:"1-888-687-2277", website:"https://www.aarp.org/states/texas", hours:"Varies by program; call for current services" },
+
+  // ── VETERANS ──────────────────────────────────────────────────────────
+  { id:"va-waco", name:"Central Texas Veterans Health Care System — Waco", cat:"veterans", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Full-service VA medical center providing primary care, mental health, substance use treatment, and specialty care for eligible veterans in Central Texas.", phone:"(254) 297-3000", website:"https://www.centraltexas.va.gov", hours:"24/7 emergency; clinics Mon–Fri 7:30am–4:30pm" },
+  { id:"mclennan-vso", name:"McLennan County Veterans Service Office", cat:"veterans", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Free assistance navigating VA benefits, disability claims, pensions, and appeals. County-funded, veteran-staffed office serving all McLennan County veterans.", phone:"(254) 757-5100", website:"https://www.co.mclennan.tx.us", hours:"Mon–Fri 8am–5pm" },
+  { id:"waco-veterans-connect", name:"Waco Veterans Connect", cat:"veterans", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Community organization connecting Waco-area veterans to services, peer support, employment, and community resources. Navigator assistance available.", phone:"(254) 300-0700", website:"https://www.wacoveterans.org", hours:"Mon–Fri 9am–4pm" },
+];
+
+// State
+let activeNeed="", activeArea="", activeLang="", activeCat="";
+
+function gcTrack(path, title) {
+  if (window.goatcounter && window.goatcounter.count)
+    window.goatcounter.count({ path, title });
+}
+
+function badgeLabel(cat) {
+  return {food:"Food",housing:"Housing",health:"Health",mental:"Mental Health",immigration:"Immigration",family:"Family",safety:"DV / Safety",seniors:"Seniors",veterans:"Veterans"}[cat] || cat;
+}
+
+function langLabel(l) {
+  return {en:"EN",es:"ES",vi:"VI",zh:"中",ar:"AR"}[l] || l.toUpperCase();
+}
+
+function render(resources) {
+  const grid = document.getElementById("results-grid");
+  document.getElementById("results-count").textContent = resources.length
+    ? `${resources.length} resource${resources.length===1?'':'s'} found`
+    : "";
+  if (!resources.length) {
+    grid.innerHTML = `<div class="empty-state"><p>No matches with these filters. Try fewer filters, or call <strong>211</strong> (free, 24/7, multilingual) — they can help directly.</p></div>`;
+    return;
+  }
+  grid.innerHTML = resources.map(r => `
+    <div class="card" id="card-${r.id}">
+      <div class="card-header">
+        <span class="card-name">${r.name}</span>
+        <span class="badge badge-${r.cat}">${badgeLabel(r.cat)}</span>
+      </div>
+      <p class="card-desc">${r.desc}</p>
+      <div class="card-meta">
+        ${r.hours ? `<span>🕐 ${r.hours}</span>` : ''}
+        ${r.phone ? `<span>📞 ${r.phone}</span>` : ''}
+      </div>
+      <div class="card-actions">
+        ${r.phone ? `<a class="card-link phone" href="tel:${r.phone.replace(/\D/g,'')}" onclick="gcTrack('resource-call/${r.id}','Call: ${r.name}')">📞 Call</a>` : ''}
+        ${r.website ? `<a class="card-link" href="${r.website}" target="_blank" rel="noopener" onclick="gcTrack('resource-visit/${r.id}','Visit: ${r.name}')">Website →</a>` : ''}
+        <span class="card-langs">${r.langs.map(langLabel).join(' · ')}</span>
+        <button class="card-link" onclick="openReportFor('${r.name.replace(/'/g,"\\'")}')">Report error</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function getFiltered() {
+  return RESOURCES.filter(r => {
+    if (activeNeed && r.cat !== activeNeed) return false;
+    if (activeArea && !r.areas.includes(activeArea)) return false;
+    if (activeLang && !r.langs.includes(activeLang)) return false;
+    if (activeCat && r.cat !== activeCat) return false;
+    return true;
+  });
+}
+
+function applyFilters() {
+  activeNeed = document.getElementById('sel-need').value;
+  activeArea = document.getElementById('sel-area').value;
+  activeLang = document.getElementById('sel-lang').value;
+  activeCat = activeNeed;
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.cat === (activeNeed||'')));
+  gcTrack(`waco/filter/need=${activeNeed}&area=${activeArea}&lang=${activeLang}`, 'Waco filter applied');
+  render(getFiltered());
+  document.getElementById('results-section').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function clearFilters() {
+  activeNeed=""; activeArea=""; activeLang=""; activeCat="";
+  ['sel-need','sel-area','sel-lang'].forEach(id => document.getElementById(id).value='');
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.cat===''));
+  render(RESOURCES);
+}
+
+function filterTab(el, cat) {
+  activeCat=cat; activeNeed=cat;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  gcTrack(`waco/tab/${cat||'all'}`, `Waco tab: ${cat||'All'}`);
+  render(getFiltered());
+}
+
+function openModal() {
+  document.getElementById('modal-overlay').classList.add('open');
+  gcTrack('waco/error-report-open','Waco error report opened');
+}
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.getElementById('modal-form-body').style.display='';
+  document.getElementById('form-success').style.display='none';
+  document.getElementById('error-form').reset();
+  document.getElementById('form-err-msg').style.display='none';
+}
+function openReportFor(name) {
+  document.getElementById('err-resource').value = name;
+  openModal();
+}
+document.getElementById('modal-overlay').addEventListener('click', e => {
+  if (e.target===document.getElementById('modal-overlay')) closeModal();
+});
+
+document.getElementById('error-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = this.querySelector('[type=submit]');
+  btn.textContent='Sending…'; btn.disabled=true;
+  try {
+    const res = await fetch(this.action, { method:'POST', body:new FormData(this), headers:{'Accept':'application/json'} });
+    if (res.ok) {
+      document.getElementById('modal-form-body').style.display='none';
+      document.getElementById('form-success').style.display='block';
+      gcTrack('waco/error-report-submitted','Waco error report submitted');
+    } else {
+      document.getElementById('form-err-msg').style.display='block';
+      btn.textContent='Send report'; btn.disabled=false;
+    }
+  } catch {
+    document.getElementById('form-err-msg').style.display='block';
+    btn.textContent='Send report'; btn.disabled=false;
+  }
+});
+
+function setLang(lang) {
+  document.querySelectorAll('.lang-btn').forEach(b =>
+    b.classList.toggle('active', b.textContent.trim().toLowerCase().startsWith(lang==='en'?'eng':'esp'))
+  );
+  gcTrack(`waco/lang/${lang}`, `Waco language: ${lang}`);
+}
+
+render(RESOURCES);
+window.addEventListener('load', () => gcTrack('/waco','Waco Care Connect – Home'));
+</script>
+</body>
+</html>
