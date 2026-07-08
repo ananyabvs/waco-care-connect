@@ -43,21 +43,24 @@
     .skip:focus { left:16px; background:var(--navy); color:#fff; padding:6px 12px; border-radius:6px; z-index:999; }
 
     /* Header */
+    html, body { overflow-x: hidden; }
     header {
       background: var(--navy);
       padding: 16px 28px;
       display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; row-gap: 10px;
       position: sticky; top: 0; z-index: 100;
       box-shadow: 0 2px 12px rgba(0,0,0,.25);
     }
     .logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: #fff; letter-spacing: .01em; }
     .logo span { color: var(--gold); }
-    .lang-btns { display:flex; gap:8px; }
+    .lang-btns { display:flex; gap:8px; flex-shrink: 0; }
     .lang-btn {
       font-size:.8rem; font-weight:600; padding:5px 14px;
       border:1.5px solid rgba(255,255,255,.3); border-radius:20px;
       background:transparent; cursor:pointer; color:rgba(255,255,255,.8);
       transition: all .15s; font-family: inherit;
+      white-space: nowrap;
     }
     .lang-btn.active, .lang-btn:hover { border-color:#fff; color:#fff; background:rgba(255,255,255,.12); }
 
@@ -182,134 +185,139 @@
       .filter-grid { grid-template-columns:1fr; }
       main { padding:0 16px 100px; }
     }
+    @media(max-width:400px) {
+      header { padding: 12px 16px; }
+      .logo { font-size: 1.05rem; }
+      .lang-btn { padding: 4px 10px; font-size: .74rem; }
+    }
   </style>
 </head>
 <body>
-<a href="#main" class="skip">Skip to content</a>
+<a href="#main" class="skip" data-en="Skip to content" data-es="Saltar al contenido">Skip to content</a>
 
 <header>
   <div class="logo">Waco <span>Care</span> Connect</div>
   <div class="lang-btns">
-    <button class="lang-btn active" onclick="setLang('en')">English</button>
-    <button class="lang-btn" onclick="setLang('es')">Español</button>
+    <button class="lang-btn active" data-lang="en" onclick="setLang('en')">English</button>
+    <button class="lang-btn" data-lang="es" onclick="setLang('es')">Español</button>
   </div>
 </header>
 
 <div class="hero-wrap">
-  <h1>Find help in <em>Waco.</em></h1>
-  <p>Free. Bilingual. Built for McLennan County. Three quick questions and we'll show you the right resources — no account, no judgment.</p>
+  <h1 data-en-html="Find help in <em>Waco.</em>" data-es-html="Encuentra ayuda en <em>Waco.</em>">Find help in <em>Waco.</em></h1>
+  <p data-en="Free. Bilingual. Built for McLennan County. Three quick questions and we'll show you the right resources — no account, no judgment." data-es="Gratis. Bilingüe. Hecho para el condado de McLennan. Tres preguntas rápidas y te mostramos los recursos correctos — sin cuenta, sin juicios.">Free. Bilingual. Built for McLennan County. Three quick questions and we'll show you the right resources — no account, no judgment.</p>
 </div>
 
 <main id="main">
   <section class="filter-card" aria-label="Filter resources">
-    <h2>Three quick questions</h2>
-    <p class="sub">Tres preguntas rápidas — tell us a little so we can show what's most relevant.</p>
+    <h2 data-en="Three quick questions" data-es="Tres preguntas rápidas">Three quick questions</h2>
+    <p class="sub" data-en="Tell us a little so we can show what's most relevant." data-es="Cuéntanos un poco para mostrarte lo más relevante.">Tell us a little so we can show what's most relevant.</p>
     <div class="filter-grid">
       <div class="filter-group">
-        <label for="sel-need">What do you need most?</label>
+        <label for="sel-need" data-en="What do you need most?" data-es="¿Qué necesitas más?">What do you need most?</label>
         <select id="sel-need">
-          <option value="">Show me everything</option>
-          <option value="food">Food</option>
-          <option value="housing">Housing / Shelter</option>
-          <option value="health">Healthcare</option>
-          <option value="mental">Mental health</option>
-          <option value="immigration">Immigration / Legal</option>
-          <option value="family">Family / Kids</option>
-          <option value="safety">Safety / Domestic violence</option>
-          <option value="seniors">Senior services</option>
-          <option value="veterans">Veterans</option>
+          <option value="" data-en="Show me everything" data-es="Mostrar todo">Show me everything</option>
+          <option value="food" data-en="Food" data-es="Comida">Food</option>
+          <option value="housing" data-en="Housing / Shelter" data-es="Vivienda / Refugio">Housing / Shelter</option>
+          <option value="health" data-en="Healthcare" data-es="Salud">Healthcare</option>
+          <option value="mental" data-en="Mental health" data-es="Salud mental">Mental health</option>
+          <option value="immigration" data-en="Immigration / Legal" data-es="Inmigración / Legal">Immigration / Legal</option>
+          <option value="family" data-en="Family / Kids" data-es="Familia / Niños">Family / Kids</option>
+          <option value="safety" data-en="Safety / Domestic violence" data-es="Seguridad / Violencia doméstica">Safety / Domestic violence</option>
+          <option value="seniors" data-en="Senior services" data-es="Servicios para personas mayores">Senior services</option>
+          <option value="veterans" data-en="Veterans" data-es="Veteranos">Veterans</option>
         </select>
       </div>
       <div class="filter-group">
-        <label for="sel-area">What part of Waco?</label>
+        <label for="sel-area" data-en="What part of Waco?" data-es="¿Qué parte de Waco?">What part of Waco?</label>
         <select id="sel-area">
-          <option value="">Anywhere in McLennan County</option>
-          <option value="downtown">Downtown Waco</option>
-          <option value="north">North Waco</option>
-          <option value="east">East Waco</option>
-          <option value="south">South Waco</option>
-          <option value="west">West Waco / Woodway</option>
-          <option value="county">Outside Waco (McLennan County)</option>
+          <option value="" data-en="Anywhere in McLennan County" data-es="Cualquier parte del condado de McLennan">Anywhere in McLennan County</option>
+          <option value="downtown" data-en="Downtown Waco" data-es="Centro de Waco">Downtown Waco</option>
+          <option value="north" data-en="North Waco" data-es="Norte de Waco">North Waco</option>
+          <option value="east" data-en="East Waco" data-es="Este de Waco">East Waco</option>
+          <option value="south" data-en="South Waco" data-es="Sur de Waco">South Waco</option>
+          <option value="west" data-en="West Waco / Woodway" data-es="Oeste de Waco / Woodway">West Waco / Woodway</option>
+          <option value="county" data-en="Outside Waco (McLennan County)" data-es="Fuera de Waco (condado de McLennan)">Outside Waco (McLennan County)</option>
         </select>
       </div>
       <div class="filter-group">
-        <label for="sel-lang">Preferred language?</label>
+        <label for="sel-lang" data-en="Preferred language?" data-es="¿Idioma preferido?">Preferred language?</label>
         <select id="sel-lang">
-          <option value="">Any</option>
+          <option value="" data-en="Any" data-es="Cualquiera">Any</option>
           <option value="en">English</option>
           <option value="es">Español</option>
         </select>
       </div>
     </div>
     <div class="filter-actions">
-      <button class="btn-primary" onclick="applyFilters()">Show me resources</button>
-      <button class="btn-ghost" onclick="clearFilters()">Clear</button>
+      <button class="btn-primary" data-en="Show me resources" data-es="Mostrar recursos" onclick="applyFilters()">Show me resources</button>
+      <button class="btn-ghost" data-en="Clear" data-es="Limpiar" onclick="clearFilters()">Clear</button>
     </div>
   </section>
 
   <section id="results-section" aria-label="Resources">
     <div class="results-header">
-      <h2>Results</h2>
+      <h2 data-en="Results" data-es="Resultados">Results</h2>
       <span class="results-count" id="results-count"></span>
     </div>
     <div class="tabs" role="tablist">
-      <button class="tab active" data-cat="" onclick="filterTab(this,'')">All</button>
-      <button class="tab" data-cat="food" onclick="filterTab(this,'food')">🍎 Food</button>
-      <button class="tab" data-cat="housing" onclick="filterTab(this,'housing')">🏠 Housing</button>
-      <button class="tab" data-cat="health" onclick="filterTab(this,'health')">🏥 Health</button>
-      <button class="tab" data-cat="mental" onclick="filterTab(this,'mental')">🧠 Mental health</button>
-      <button class="tab" data-cat="immigration" onclick="filterTab(this,'immigration')">🌎 Immigration</button>
-      <button class="tab" data-cat="family" onclick="filterTab(this,'family')">👨‍👩‍👧 Family</button>
-      <button class="tab" data-cat="safety" onclick="filterTab(this,'safety')">🛡️ DV / Safety</button>
-      <button class="tab" data-cat="seniors" onclick="filterTab(this,'seniors')">👴 Seniors</button>
-      <button class="tab" data-cat="veterans" onclick="filterTab(this,'veterans')">🎖️ Veterans</button>
+      <button class="tab active" data-cat="" data-en="All" data-es="Todos" onclick="filterTab(this,'')">All</button>
+      <button class="tab" data-cat="food" data-en="🍎 Food" data-es="🍎 Comida" onclick="filterTab(this,'food')">🍎 Food</button>
+      <button class="tab" data-cat="housing" data-en="🏠 Housing" data-es="🏠 Vivienda" onclick="filterTab(this,'housing')">🏠 Housing</button>
+      <button class="tab" data-cat="health" data-en="🏥 Health" data-es="🏥 Salud" onclick="filterTab(this,'health')">🏥 Health</button>
+      <button class="tab" data-cat="mental" data-en="🧠 Mental health" data-es="🧠 Salud mental" onclick="filterTab(this,'mental')">🧠 Mental health</button>
+      <button class="tab" data-cat="immigration" data-en="🌎 Immigration" data-es="🌎 Inmigración" onclick="filterTab(this,'immigration')">🌎 Immigration</button>
+      <button class="tab" data-cat="family" data-en="👨‍👩‍👧 Family" data-es="👨‍👩‍👧 Familia" onclick="filterTab(this,'family')">👨‍👩‍👧 Family</button>
+      <button class="tab" data-cat="safety" data-en="🛡️ DV / Safety" data-es="🛡️ Violencia doméstica" onclick="filterTab(this,'safety')">🛡️ DV / Safety</button>
+      <button class="tab" data-cat="seniors" data-en="👴 Seniors" data-es="👴 Personas mayores" onclick="filterTab(this,'seniors')">👴 Seniors</button>
+      <button class="tab" data-cat="veterans" data-en="🎖️ Veterans" data-es="🎖️ Veteranos" onclick="filterTab(this,'veterans')">🎖️ Veterans</button>
     </div>
     <div id="results-grid" class="resource-grid"></div>
   </section>
 </main>
 
 <footer>
-  <p>Waco Care Connect — built by Ananya Bharathapudi. A free community tool. Not affiliated with the City of Waco.</p>
-  <p>If you're in immediate danger, call <strong>911</strong>. For 24/7 help, call <strong>211</strong> or visit <a href="https://www.211texas.org" target="_blank" rel="noopener">211 Texas</a>.</p>
-  <p>Found an error? Use the button below or email <a href="mailto:ananyabvs@gmail.com">ananyabvs@gmail.com</a>.</p>
+  <p data-en="Waco Care Connect — built by Ananya Bharathapudi. A free community tool. Not affiliated with the City of Waco." data-es="Waco Care Connect — creado por Ananya Bharathapudi. Una herramienta comunitaria gratuita. No afiliada con la Ciudad de Waco.">Waco Care Connect — built by Ananya Bharathapudi. A free community tool. Not affiliated with the City of Waco.</p>
+  <p data-en-html="If you're in immediate danger, call <strong>911</strong>. For 24/7 help, call <strong>211</strong> or visit <a href=&quot;https://www.211texas.org&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;>211 Texas</a>." data-es-html="Si estás en peligro inmediato, llama al <strong>911</strong>. Para ayuda las 24 horas, llama al <strong>211</strong> o visita <a href=&quot;https://www.211texas.org&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;>211 Texas</a>.">If you're in immediate danger, call <strong>911</strong>. For 24/7 help, call <strong>211</strong> or visit <a href="https://www.211texas.org" target="_blank" rel="noopener">211 Texas</a>.</p>
+  <p data-en-html="Found an error? Use the button below or email <a href=&quot;mailto:ananyabvs@gmail.com&quot;>ananyabvs@gmail.com</a>." data-es-html="¿Encontraste un error? Usa el botón de abajo o escribe a <a href=&quot;mailto:ananyabvs@gmail.com&quot;>ananyabvs@gmail.com</a>.">Found an error? Use the button below or email <a href="mailto:ananyabvs@gmail.com">ananyabvs@gmail.com</a>.</p>
 </footer>
 
-<button id="report-btn" onclick="openModal()" aria-haspopup="dialog">⚠️ Report an error / Reportar</button>
+<button id="report-btn" data-en="⚠️ Report an error" data-es="⚠️ Reportar un error" onclick="openModal()" aria-haspopup="dialog">⚠️ Report an error</button>
 
 <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()" aria-label="Close">×</button>
-    <h2 id="modal-title">Report an error</h2>
-    <p class="sub">Help us keep this directory accurate. / Ayúdanos a mantenerlo preciso.</p>
+    <h2 id="modal-title" data-en="Report an error" data-es="Reportar un error">Report an error</h2>
+    <p class="sub" data-en="Help us keep this directory accurate." data-es="Ayúdanos a mantener este directorio preciso.">Help us keep this directory accurate.</p>
     <div id="modal-form-body">
       <form id="error-form" action="https://formspree.io/f/meedgprv" method="POST">
-        <label for="err-type">What's wrong?</label>
+        <label for="err-type" data-en="What's wrong?" data-es="¿Qué está mal?">What's wrong?</label>
         <select id="err-type" name="issue_type" required>
-          <option value="">— select —</option>
-          <option value="Phone number wrong">Phone number wrong</option>
-          <option value="Place is closed">Place is closed</option>
-          <option value="Hours wrong">Hours wrong</option>
-          <option value="Language info wrong">Language info wrong</option>
-          <option value="A resource is missing">A resource is missing</option>
-          <option value="Other">Other</option>
+          <option value="" data-en="— select —" data-es="— selecciona —">— select —</option>
+          <option value="Phone number wrong" data-en="Phone number wrong" data-es="Número de teléfono incorrecto">Phone number wrong</option>
+          <option value="Place is closed" data-en="Place is closed" data-es="El lugar está cerrado">Place is closed</option>
+          <option value="Hours wrong" data-en="Hours wrong" data-es="Horario incorrecto">Hours wrong</option>
+          <option value="Language info wrong" data-en="Language info wrong" data-es="Información de idioma incorrecta">Language info wrong</option>
+          <option value="A resource is missing" data-en="A resource is missing" data-es="Falta un recurso">A resource is missing</option>
+          <option value="Other" data-en="Other" data-es="Otro">Other</option>
         </select>
-        <label for="err-resource">Which resource?</label>
-        <input type="text" id="err-resource" name="resource_name" placeholder="Name of the resource..." />
-        <label for="err-detail">Details</label>
-        <textarea id="err-detail" name="details" placeholder="Tell us what's wrong..."></textarea>
-        <label for="err-email">Your email (optional)</label>
+        <label for="err-resource" data-en="Which resource?" data-es="¿Qué recurso?">Which resource?</label>
+        <input type="text" id="err-resource" name="resource_name" placeholder="Name of the resource..." data-en-ph="Name of the resource..." data-es-ph="Nombre del recurso..." />
+        <label for="err-detail" data-en="Details" data-es="Detalles">Details</label>
+        <textarea id="err-detail" name="details" placeholder="Tell us what's wrong..." data-en-ph="Tell us what's wrong..." data-es-ph="Cuéntanos qué está mal..."></textarea>
+        <label for="err-email" data-en="Your email (optional)" data-es="Tu correo (opcional)">Your email (optional)</label>
         <input type="email" id="err-email" name="_replyto" placeholder="you@example.com" />
         <input type="hidden" name="_subject" value="Waco Care Connect — error report" />
-        <p id="form-err-msg" class="form-error-msg">Something went wrong. Please try again or email ananyabvs@gmail.com.</p>
+        <p id="form-err-msg" class="form-error-msg" data-en="Something went wrong. Please try again or email ananyabvs@gmail.com." data-es="Algo salió mal. Intenta de nuevo o escribe a ananyabvs@gmail.com.">Something went wrong. Please try again or email ananyabvs@gmail.com.</p>
         <div class="modal-actions">
-          <button type="button" class="btn-ghost" onclick="closeModal()">Cancel</button>
-          <button type="submit" class="btn-primary">Send report</button>
+          <button type="button" class="btn-ghost" data-en="Cancel" data-es="Cancelar" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn-primary" data-en="Send report" data-es="Enviar reporte">Send report</button>
         </div>
       </form>
     </div>
     <div class="form-success" id="form-success">
       <div class="check">✅</div>
-      <p><strong>Thank you!</strong> We'll review and fix it soon.</p>
+      <p data-en-html="<strong>Thank you!</strong> We'll review and fix it soon." data-es-html="<strong>¡Gracias!</strong> Lo revisaremos y corregiremos pronto."><strong>Thank you!</strong> We'll review and fix it soon.</p>
     </div>
   </div>
 </div>
@@ -317,70 +325,71 @@
 <script>
 const RESOURCES = [
   // ── FOOD ─────────────────────────────────────────────────────────────
-  { id:"caritas", name:"Caritas of Waco", cat:"food", areas:["downtown","south","east"], langs:["en","es"], desc:"Emergency food pantry serving McLennan County residents. Provides groceries, toiletries, and referrals to other social services. Walk-in and appointment options available.", phone:"(254) 753-4593", website:"https://www.caritas-waco.org", hours:"Mon–Fri 9am–12pm" },
-  { id:"salvation-food", name:"The Salvation Army of Waco — Food Pantry", cat:"food", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Emergency food assistance and hot meals for individuals and families in need. Also provides shelter and utility assistance.", phone:"(254) 753-3455", website:"https://www.salvationarmytexas.org/waco", hours:"Mon–Fri 9am–12pm; call for pantry schedule" },
-  { id:"shepherd-heart", name:"Shepherd's Heart Food Pantry", cat:"food", areas:["south","downtown"], langs:["en","es"], desc:"Free food pantry operated by a faith community, serving south Waco and surrounding areas. Open to anyone in need, no documentation required.", phone:"(254) 296-0499", website:"https://www.shepherdsheartwaco.org", hours:"Tue & Thu 9am–11am" },
-  { id:"loaves-fishes-waco", name:"Loaves and Fishes Waco — Free Meals", cat:"food", areas:["downtown"], langs:["en","es"], desc:"Provides free hot meals to anyone in need in downtown Waco. No eligibility requirements — all are welcome at the table.", phone:"(254) 753-2848", website:"https://www.loavesfisheswaco.org", hours:"Mon–Fri 11:30am–1pm" },
-  { id:"mission-waco-pantry", name:"Mission Waco — Market Place", cat:"food", areas:["downtown","east","north"], langs:["en","es"], desc:"Community marketplace providing free groceries and household items to low-income Waco residents. Also offers job training and other wraparound services.", phone:"(254) 753-6853", website:"https://www.missionwaco.org", hours:"Mon–Fri 9am–4pm" },
-  { id:"central-tx-food-bank", name:"Central Texas Food Bank — Waco Distribution", cat:"food", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Regional food bank distributing food through partner agencies across McLennan County. Find nearest partner distribution at their website.", phone:"(512) 282-2111", website:"https://www.centraltexasfoodbank.org", hours:"Varies by partner site" },
-  { id:"urban-ministry-waco", name:"Waco Urban Ministry — Food Pantry", cat:"food", areas:["downtown","east"], langs:["en","es"], desc:"Provides food, clothing, and emergency assistance to low-income Waco residents. Faith-rooted, open to all.", phone:"(254) 754-3591", website:"https://www.wacourbanministry.org", hours:"Mon–Fri 9am–12pm" },
+  { id:"caritas", name:"Caritas of Waco", cat:"food", areas:["downtown","south","east"], langs:["en","es"], desc:"Emergency food pantry serving McLennan County residents. Provides groceries, toiletries, and referrals to other social services. Walk-in and appointment options available.", desc_es:"Despensa de alimentos de emergencia para residentes del condado de McLennan. Ofrece víveres, artículos de higiene y referencias a otros servicios sociales. Disponible sin cita o con cita previa.", phone:"(254) 753-4593", website:"https://www.caritas-waco.org", hours:"Mon–Fri 9am–12pm" },
+  { id:"salvation-food", name:"The Salvation Army of Waco — Food Pantry", cat:"food", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Emergency food assistance and hot meals for individuals and families in need. Also provides shelter and utility assistance.", desc_es:"Asistencia alimentaria de emergencia y comidas calientes para personas y familias necesitadas. También ofrece refugio y ayuda con servicios públicos.", phone:"(254) 753-3455", website:"https://www.salvationarmytexas.org/waco", hours:"Mon–Fri 9am–12pm; call for pantry schedule" },
+  { id:"shepherd-heart", name:"Shepherd's Heart Food Pantry", cat:"food", areas:["south","downtown"], langs:["en","es"], desc:"Free food pantry operated by a faith community, serving south Waco and surrounding areas. Open to anyone in need, no documentation required.", desc_es:"Despensa de alimentos gratuita operada por una comunidad religiosa, que sirve al sur de Waco y áreas cercanas. Abierta a cualquier persona necesitada, sin necesidad de documentos.", phone:"(254) 296-0499", website:"https://www.shepherdsheartwaco.org", hours:"Tue & Thu 9am–11am" },
+  { id:"loaves-fishes-waco", name:"Loaves and Fishes Waco — Free Meals", cat:"food", areas:["downtown"], langs:["en","es"], desc:"Provides free hot meals to anyone in need in downtown Waco. No eligibility requirements — all are welcome at the table.", desc_es:"Ofrece comidas calientes gratuitas a cualquier persona necesitada en el centro de Waco. Sin requisitos de elegibilidad: todos son bienvenidos a la mesa.", phone:"(254) 753-2848", website:"https://www.loavesfisheswaco.org", hours:"Mon–Fri 11:30am–1pm" },
+  { id:"mission-waco-pantry", name:"Mission Waco — Market Place", cat:"food", areas:["downtown","east","north"], langs:["en","es"], desc:"Community marketplace providing free groceries and household items to low-income Waco residents. Also offers job training and other wraparound services.", desc_es:"Mercado comunitario que ofrece víveres y artículos del hogar gratuitos a residentes de bajos ingresos de Waco. También ofrece capacitación laboral y otros servicios integrales.", phone:"(254) 753-6853", website:"https://www.missionwaco.org", hours:"Mon–Fri 9am–4pm" },
+  { id:"central-tx-food-bank", name:"Central Texas Food Bank — Waco Distribution", cat:"food", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Regional food bank distributing food through partner agencies across McLennan County. Find nearest partner distribution at their website.", desc_es:"Banco de alimentos regional que distribuye comida a través de agencias asociadas en todo el condado de McLennan. Encuentra el punto de distribución más cercano en su sitio web.", phone:"(512) 282-2111", website:"https://www.centraltexasfoodbank.org", hours:"Varies by partner site" },
+  { id:"urban-ministry-waco", name:"Waco Urban Ministry — Food Pantry", cat:"food", areas:["downtown","east"], langs:["en","es"], desc:"Provides food, clothing, and emergency assistance to low-income Waco residents. Faith-rooted, open to all.", desc_es:"Ofrece alimentos, ropa y asistencia de emergencia a residentes de bajos ingresos de Waco. De raíz religiosa, abierto a todos.", phone:"(254) 754-3591", website:"https://www.wacourbanministry.org", hours:"Mon–Fri 9am–12pm" },
 
   // ── HOUSING ──────────────────────────────────────────────────────────
-  { id:"mission-waco-housing", name:"Mission Waco — Shepherd's Heart Village", cat:"housing", areas:["downtown","east"], langs:["en","es"], desc:"Transitional and supportive housing for adults experiencing homelessness. Case management, recovery support, and job training included.", phone:"(254) 753-6853", website:"https://www.missionwaco.org", hours:"Call Mon–Fri 9am–4pm" },
-  { id:"salvation-shelter", name:"The Salvation Army — Emergency Shelter", cat:"housing", areas:["downtown"], langs:["en","es"], desc:"Emergency shelter for men, women, and families. Provides meals, case management, and referrals. Call ahead to confirm availability.", phone:"(254) 753-3455", website:"https://www.salvationarmytexas.org/waco", hours:"Call for intake hours" },
-  { id:"cove-waco", name:"The Cove — Teen Resource Center", cat:"housing", areas:["downtown","east","south"], langs:["en","es"], desc:"Drop-in center and emergency shelter specifically for teens and young adults (ages 11–21) experiencing homelessness or housing instability in Waco.", phone:"(254) 741-0081", website:"https://www.thecovewaco.org", hours:"Mon–Fri 9am–5pm; call for after-hours" },
-  { id:"neighborworks-waco", name:"NeighborWorks Waco — Housing Programs", cat:"housing", areas:["downtown","east","north","south"], langs:["en","es"], desc:"Homeownership counseling, home repair assistance, and neighborhood revitalization for low-income Waco residents. HUD-approved housing counseling.", phone:"(254) 753-2962", website:"https://www.nw-waco.org", hours:"Mon–Fri 8am–5pm" },
-  { id:"habitat-waco", name:"Habitat for Humanity Waco", cat:"housing", areas:["downtown","east","north","south","county"], langs:["en","es"], desc:"Affordable homeownership for income-qualifying families through a sweat equity model. Also provides critical home repairs for low-income homeowners.", phone:"(254) 741-0800", website:"https://www.wacohabitat.org", hours:"Mon–Fri 8am–5pm; ReStore open Mon–Sat" },
-  { id:"waco-pha", name:"Waco Housing Authority — Section 8 / Public Housing", cat:"housing", areas:["downtown","north","east","south","west"], langs:["en","es"], desc:"Administers Section 8 Housing Choice Vouchers and manages public housing units in Waco. Waitlist openings vary — check website for current status.", phone:"(254) 753-1521", website:"https://www.wacopha.org", hours:"Mon–Fri 8am–5pm" },
-  { id:"heart-homeless", name:"Heart of Texas Homeless Coalition — Coordinated Entry", cat:"housing", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Waco's coordinated entry system for individuals experiencing homelessness. Connects people to the most appropriate housing resources in McLennan County.", phone:"(254) 300-4376", website:"https://www.hotxhomeless.org", hours:"Mon–Fri 8am–5pm" },
+  { id:"mission-waco-housing", name:"Mission Waco — Shepherd's Heart Village", cat:"housing", areas:["downtown","east"], langs:["en","es"], desc:"Transitional and supportive housing for adults experiencing homelessness. Case management, recovery support, and job training included.", desc_es:"Vivienda de transición y con apoyo para adultos en situación de calle. Incluye manejo de casos, apoyo en recuperación y capacitación laboral.", phone:"(254) 753-6853", website:"https://www.missionwaco.org", hours:"Call Mon–Fri 9am–4pm" },
+  { id:"salvation-shelter", name:"The Salvation Army — Emergency Shelter", cat:"housing", areas:["downtown"], langs:["en","es"], desc:"Emergency shelter for men, women, and families. Provides meals, case management, and referrals. Call ahead to confirm availability.", desc_es:"Refugio de emergencia para hombres, mujeres y familias. Ofrece comidas, manejo de casos y referencias. Llame antes para confirmar disponibilidad.", phone:"(254) 753-3455", website:"https://www.salvationarmytexas.org/waco", hours:"Call for intake hours" },
+  { id:"cove-waco", name:"The Cove — Teen Resource Center", cat:"housing", areas:["downtown","east","south"], langs:["en","es"], desc:"Drop-in center and emergency shelter specifically for teens and young adults (ages 11–21) experiencing homelessness or housing instability in Waco.", desc_es:"Centro de acogida y refugio de emergencia específicamente para adolescentes y adultos jóvenes (11 a 21 años) en situación de calle o inestabilidad de vivienda en Waco.", phone:"(254) 741-0081", website:"https://www.thecovewaco.org", hours:"Mon–Fri 9am–5pm; call for after-hours" },
+  { id:"neighborworks-waco", name:"NeighborWorks Waco — Housing Programs", cat:"housing", areas:["downtown","east","north","south"], langs:["en","es"], desc:"Homeownership counseling, home repair assistance, and neighborhood revitalization for low-income Waco residents. HUD-approved housing counseling.", desc_es:"Asesoría para compra de vivienda, ayuda con reparaciones del hogar y revitalización de vecindarios para residentes de bajos ingresos de Waco. Asesoría de vivienda aprobada por HUD.", phone:"(254) 753-2962", website:"https://www.nw-waco.org", hours:"Mon–Fri 8am–5pm" },
+  { id:"habitat-waco", name:"Habitat for Humanity Waco", cat:"housing", areas:["downtown","east","north","south","county"], langs:["en","es"], desc:"Affordable homeownership for income-qualifying families through a sweat equity model. Also provides critical home repairs for low-income homeowners.", desc_es:"Vivienda propia asequible para familias que califiquen por ingresos, a través de un modelo de trabajo comunitario. También ofrece reparaciones críticas para propietarios de bajos ingresos.", phone:"(254) 741-0800", website:"https://www.wacohabitat.org", hours:"Mon–Fri 8am–5pm; ReStore open Mon–Sat" },
+  { id:"waco-pha", name:"Waco Housing Authority — Section 8 / Public Housing", cat:"housing", areas:["downtown","north","east","south","west"], langs:["en","es"], desc:"Administers Section 8 Housing Choice Vouchers and manages public housing units in Waco. Waitlist openings vary — check website for current status.", desc_es:"Administra los vales de vivienda Sección 8 y gestiona unidades de vivienda pública en Waco. La lista de espera varía; consulte el sitio web para el estado actual.", phone:"(254) 753-1521", website:"https://www.wacopha.org", hours:"Mon–Fri 8am–5pm" },
+  { id:"heart-homeless", name:"Heart of Texas Homeless Coalition — Coordinated Entry", cat:"housing", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Waco's coordinated entry system for individuals experiencing homelessness. Connects people to the most appropriate housing resources in McLennan County.", desc_es:"Sistema de entrada coordinada de Waco para personas en situación de calle. Conecta a las personas con los recursos de vivienda más adecuados en el condado de McLennan.", phone:"(254) 300-4376", website:"https://www.hotxhomeless.org", hours:"Mon–Fri 8am–5pm" },
 
   // ── HEALTH ───────────────────────────────────────────────────────────
-  { id:"waco-family-med", name:"Waco Family Medicine / Heart of Texas Community Health Center", cat:"health", areas:["downtown","south","east","north","county"], langs:["en","es"], desc:"Federally Qualified Health Center providing affordable primary care, dental, behavioral health, and OB/GYN services regardless of ability to pay. Sliding fee scale available.", phone:"(254) 313-8000", website:"https://www.wacofamilymedicine.org", hours:"Mon–Fri 8am–5pm; some extended hours" },
-  { id:"bsw-waco", name:"Baylor Scott & White Medical Center — Waco", cat:"health", areas:["downtown","north","west"], langs:["en","es"], desc:"Full-service hospital with emergency care, specialty services, and financial assistance programs for uninsured patients. Social workers on staff to connect to community resources.", phone:"(254) 710-8000", website:"https://www.bswhealth.com/locations/hillcrest-medical-center", hours:"24/7 Emergency; clinic hours vary" },
-  { id:"providence-waco", name:"Ascension Providence Hospital — Waco", cat:"health", areas:["downtown","south","west"], langs:["en","es"], desc:"Community hospital serving Waco and Central Texas. Financial counseling and charity care available for qualifying uninsured patients.", phone:"(254) 751-4000", website:"https://www.providence.net/waco", hours:"24/7 Emergency; clinic hours vary" },
-  { id:"mclennan-health", name:"McLennan County Health District", cat:"health", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"County public health services including immunizations, STI testing, TB screening, and WIC enrollment. Services available regardless of insurance status.", phone:"(254) 750-5410", website:"https://www.mclennan.us/health", hours:"Mon–Fri 8am–5pm" },
-  { id:"carepoint-waco", name:"CarePoint Community Health Center", cat:"health", areas:["south","downtown"], langs:["en","es"], desc:"Low-cost primary care clinic serving uninsured and underinsured residents of south Waco and McLennan County.", phone:"(254) 754-2273", website:"https://www.carepointhealth.org", hours:"Mon–Fri 8am–5pm; call for appointment" },
-  { id:"nfp-bsw", name:"Nurse-Family Partnership — Baylor Scott & White", cat:"health", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Free home visiting program for first-time mothers from pregnancy through baby's second birthday. Public health nurses provide health education and connect families to resources.", phone:"(254) 710-3880", website:"https://www.bswhealth.com", hours:"Mon–Fri 8am–5pm" },
+  { id:"waco-family-med", name:"Waco Family Medicine / Heart of Texas Community Health Center", cat:"health", areas:["downtown","south","east","north","county"], langs:["en","es"], desc:"Federally Qualified Health Center providing affordable primary care, dental, behavioral health, and OB/GYN services regardless of ability to pay. Sliding fee scale available.", desc_es:"Centro de Salud Federalmente Calificado que ofrece atención primaria, dental, de salud conductual y ginecología asequibles sin importar la capacidad de pago. Tarifas según ingresos disponibles.", phone:"(254) 313-8000", website:"https://www.wacofamilymedicine.org", hours:"Mon–Fri 8am–5pm; some extended hours" },
+  { id:"bsw-waco", name:"Baylor Scott & White Medical Center — Waco", cat:"health", areas:["downtown","north","west"], langs:["en","es"], desc:"Full-service hospital with emergency care, specialty services, and financial assistance programs for uninsured patients. Social workers on staff to connect to community resources.", desc_es:"Hospital de servicio completo con atención de emergencia, servicios especializados y programas de asistencia financiera para pacientes sin seguro. Cuenta con trabajadores sociales para conectar con recursos comunitarios.", phone:"(254) 710-8000", website:"https://www.bswhealth.com/locations/hillcrest-medical-center", hours:"24/7 Emergency; clinic hours vary" },
+  { id:"providence-waco", name:"Ascension Providence Hospital — Waco", cat:"health", areas:["downtown","south","west"], langs:["en","es"], desc:"Community hospital serving Waco and Central Texas. Financial counseling and charity care available for qualifying uninsured patients.", desc_es:"Hospital comunitario que atiende a Waco y el centro de Texas. Ofrece asesoría financiera y atención caritativa para pacientes sin seguro que califiquen.", phone:"(254) 751-4000", website:"https://www.providence.net/waco", hours:"24/7 Emergency; clinic hours vary" },
+  { id:"mclennan-health", name:"McLennan County Health District", cat:"health", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"County public health services including immunizations, STI testing, TB screening, and WIC enrollment. Services available regardless of insurance status.", desc_es:"Servicios de salud pública del condado, incluyendo vacunas, pruebas de ITS, detección de tuberculosis e inscripción a WIC. Servicios disponibles sin importar el estado del seguro.", phone:"(254) 750-5410", website:"https://www.mclennan.us/health", hours:"Mon–Fri 8am–5pm" },
+  { id:"carepoint-waco", name:"CarePoint Community Health Center", cat:"health", areas:["south","downtown"], langs:["en","es"], desc:"Low-cost primary care clinic serving uninsured and underinsured residents of south Waco and McLennan County.", desc_es:"Clínica de atención primaria de bajo costo para residentes sin seguro o con seguro insuficiente del sur de Waco y el condado de McLennan.", phone:"(254) 754-2273", website:"https://www.carepointhealth.org", hours:"Mon–Fri 8am–5pm; call for appointment" },
+  { id:"nfp-bsw", name:"Nurse-Family Partnership — Baylor Scott & White", cat:"health", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Free home visiting program for first-time mothers from pregnancy through baby's second birthday. Public health nurses provide health education and connect families to resources.", desc_es:"Programa gratuito de visitas a domicilio para madres primerizas, desde el embarazo hasta el segundo cumpleaños del bebé. Enfermeras de salud pública brindan educación y conectan a las familias con recursos.", phone:"(254) 710-3880", website:"https://www.bswhealth.com", hours:"Mon–Fri 8am–5pm" },
 
   // ── MENTAL HEALTH ─────────────────────────────────────────────────────
-  { id:"centex-bhs", name:"Centex Behavioral Healthcare", cat:"mental", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Outpatient mental health and substance use treatment for McLennan County residents. Serves adults and children. Sliding fee scale; accepts Medicaid.", phone:"(254) 752-3451", website:"https://www.centexbhs.org", hours:"Mon–Fri 8am–5pm; crisis line 24/7" },
-  { id:"waco-center-youth", name:"Waco Center for Youth", cat:"mental", areas:["downtown","north","east","south","county"], langs:["en","es"], desc:"Residential and outpatient mental health and substance use treatment for youth ages 3–17. Accepts Medicaid, CHIP, and private insurance; financial assistance available.", phone:"(254) 756-2171", website:"https://www.wacocenterforyouth.org", hours:"Call for intake hours" },
-  { id:"harris-center-waco", name:"Harris Center — Waco Outreach (MHMR)", cat:"mental", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"State-funded mental health services for uninsured or underinsured Waco residents with serious mental illness. Crisis services available 24/7.", phone:"(254) 750-5920", website:"https://www.theharriscenter.org", hours:"Mon–Fri 8am–5pm; 24/7 crisis line" },
-  { id:"talitha-koum", name:"Talitha Koum Institute", cat:"mental", areas:["downtown","east","south"], langs:["en","es"], desc:"Therapeutic nurture and early childhood mental health for young children (birth to 5) and their families affected by trauma and adversity.", phone:"(254) 741-0046", website:"https://www.talithakoum.org", hours:"Mon–Fri 8:30am–4:30pm" },
-  { id:"advocacy-unlimited", name:"Advocacy Unlimited — Peer Support Waco", cat:"mental", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Peer support services for adults living with mental health challenges. Staffed by individuals with lived experience. Drop-in and group programs available.", phone:"(254) 753-8271", website:"https://www.txadvocacy.org", hours:"Mon–Fri 8am–5pm" },
+  { id:"centex-bhs", name:"Centex Behavioral Healthcare", cat:"mental", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Outpatient mental health and substance use treatment for McLennan County residents. Serves adults and children. Sliding fee scale; accepts Medicaid.", desc_es:"Tratamiento ambulatorio de salud mental y abuso de sustancias para residentes del condado de McLennan. Atiende a adultos y niños. Tarifas según ingresos; acepta Medicaid.", phone:"(254) 752-3451", website:"https://www.centexbhs.org", hours:"Mon–Fri 8am–5pm; crisis line 24/7" },
+  { id:"waco-center-youth", name:"Waco Center for Youth", cat:"mental", areas:["downtown","north","east","south","county"], langs:["en","es"], desc:"Residential and outpatient mental health and substance use treatment for youth ages 3–17. Accepts Medicaid, CHIP, and private insurance; financial assistance available.", desc_es:"Tratamiento residencial y ambulatorio de salud mental y abuso de sustancias para jóvenes de 3 a 17 años. Acepta Medicaid, CHIP y seguro privado; asistencia financiera disponible.", phone:"(254) 756-2171", website:"https://www.wacocenterforyouth.org", hours:"Call for intake hours" },
+  { id:"harris-center-waco", name:"Harris Center — Waco Outreach (MHMR)", cat:"mental", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"State-funded mental health services for uninsured or underinsured Waco residents with serious mental illness. Crisis services available 24/7.", desc_es:"Servicios de salud mental financiados por el estado para residentes de Waco sin seguro o con seguro insuficiente que padecen enfermedades mentales graves. Servicios de crisis disponibles las 24 horas.", phone:"(254) 750-5920", website:"https://www.theharriscenter.org", hours:"Mon–Fri 8am–5pm; 24/7 crisis line" },
+  { id:"talitha-koum", name:"Talitha Koum Institute", cat:"mental", areas:["downtown","east","south"], langs:["en","es"], desc:"Therapeutic nurture and early childhood mental health for young children (birth to 5) and their families affected by trauma and adversity.", desc_es:"Cuidado terapéutico y salud mental infantil temprana para niños pequeños (desde el nacimiento hasta los 5 años) y sus familias afectadas por trauma y adversidad.", phone:"(254) 741-0046", website:"https://www.talithakoum.org", hours:"Mon–Fri 8:30am–4:30pm" },
+  { id:"advocacy-unlimited", name:"Advocacy Unlimited — Peer Support Waco", cat:"mental", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Peer support services for adults living with mental health challenges. Staffed by individuals with lived experience. Drop-in and group programs available.", desc_es:"Servicios de apoyo entre pares para adultos que enfrentan desafíos de salud mental. Atendido por personas con experiencia vivida. Programas sin cita y grupales disponibles.", phone:"(254) 753-8271", website:"https://www.txadvocacy.org", hours:"Mon–Fri 8am–5pm" },
 
   // ── IMMIGRATION / LEGAL ───────────────────────────────────────────────
-  { id:"la-puerta", name:"La Puerta Waco", cat:"immigration", areas:["downtown","south","east","county"], langs:["en","es"], desc:"Accompaniment and advocacy for migrants, asylum seekers, and refugees in the Waco area. Case management, legal referrals, and community support.", phone:"(254) 232-4028", website:"https://www.lapuertawaco.org", hours:"By appointment; call or email" },
-  { id:"estrella-waco", name:"Estrella Community Services", cat:"immigration", areas:["south","downtown","east"], langs:["en","es"], desc:"Latino-focused community services including immigration assistance, workforce development, and social services navigation for families in Waco.", phone:"(254) 753-1620", website:"https://www.estrellaservices.org", hours:"Mon–Fri 9am–5pm" },
-  { id:"tlsc-waco", name:"Texas Legal Services Center — Central Texas", cat:"immigration", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Free civil legal aid for low-income Texans covering immigration, housing, benefits, consumer, and family law. Priority given to seniors and domestic violence survivors.", phone:"(512) 477-6000", website:"https://www.tlsc.org", hours:"Mon–Fri 9am–5pm; intake by phone" },
-  { id:"baylor-law-clinic", name:"Baylor Law School — Civil Practice Clinics", cat:"immigration", areas:["downtown"], langs:["en","es"], desc:"Student-run legal clinics providing free civil legal assistance to low-income Waco residents under faculty supervision. Covers immigration, family, and consumer law.", phone:"(254) 710-1911", website:"https://www.baylor.edu/law/clinics", hours:"Mon–Fri 8am–5pm; call for appointment" },
-  { id:"waco-immigrant-coalition", name:"Waco Immigrant Coalition", cat:"immigration", areas:["downtown","south","east","north","county"], langs:["en","es"], desc:"Community coalition supporting immigrant rights and connecting immigrant families to legal, health, and social services in McLennan County.", phone:"", website:"https://www.wacoimmigrantcoalition.org", hours:"Contact through website" },
+  { id:"la-puerta", name:"La Puerta Waco", cat:"immigration", areas:["downtown","south","east","county"], langs:["en","es"], desc:"Accompaniment and advocacy for migrants, asylum seekers, and refugees in the Waco area. Case management, legal referrals, and community support.", desc_es:"Acompañamiento y defensa de migrantes, solicitantes de asilo y refugiados en el área de Waco. Manejo de casos, referencias legales y apoyo comunitario.", phone:"(254) 232-4028", website:"https://www.lapuertawaco.org", hours:"By appointment; call or email" },
+  { id:"estrella-waco", name:"Estrella Community Services", cat:"immigration", areas:["south","downtown","east"], langs:["en","es"], desc:"Latino-focused community services including immigration assistance, workforce development, and social services navigation for families in Waco.", desc_es:"Servicios comunitarios enfocados en la comunidad latina, incluyendo asistencia migratoria, desarrollo laboral y orientación de servicios sociales para familias en Waco.", phone:"(254) 753-1620", website:"https://www.estrellaservices.org", hours:"Mon–Fri 9am–5pm" },
+  { id:"tlsc-waco", name:"Texas Legal Services Center — Central Texas", cat:"immigration", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Free civil legal aid for low-income Texans covering immigration, housing, benefits, consumer, and family law. Priority given to seniors and domestic violence survivors.", desc_es:"Asistencia legal civil gratuita para texanos de bajos ingresos, que cubre inmigración, vivienda, beneficios, derecho del consumidor y derecho familiar. Prioridad para personas mayores y sobrevivientes de violencia doméstica.", phone:"(512) 477-6000", website:"https://www.tlsc.org", hours:"Mon–Fri 9am–5pm; intake by phone" },
+  { id:"baylor-law-clinic", name:"Baylor Law School — Civil Practice Clinics", cat:"immigration", areas:["downtown"], langs:["en","es"], desc:"Student-run legal clinics providing free civil legal assistance to low-income Waco residents under faculty supervision. Covers immigration, family, and consumer law.", desc_es:"Clínicas legales dirigidas por estudiantes que ofrecen asistencia legal civil gratuita a residentes de bajos ingresos de Waco bajo supervisión docente. Cubre inmigración, derecho familiar y del consumidor.", phone:"(254) 710-1911", website:"https://www.baylor.edu/law/clinics", hours:"Mon–Fri 8am–5pm; call for appointment" },
+  { id:"waco-immigrant-coalition", name:"Waco Immigrant Coalition", cat:"immigration", areas:["downtown","south","east","north","county"], langs:["en","es"], desc:"Community coalition supporting immigrant rights and connecting immigrant families to legal, health, and social services in McLennan County.", desc_es:"Coalición comunitaria que apoya los derechos de los inmigrantes y conecta a familias inmigrantes con servicios legales, de salud y sociales en el condado de McLennan.", phone:"", website:"https://www.wacoimmigrantcoalition.org", hours:"Contact through website" },
 
   // ── FAMILY / KIDS ─────────────────────────────────────────────────────
-  { id:"eoac-headstart", name:"EOAC — Head Start & Early Head Start", cat:"family", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Free early childhood education and family support for income-qualifying families with children birth to 5. Includes health screenings, meals, and parent engagement.", phone:"(254) 756-7637", website:"https://www.eoacwaco.org", hours:"Mon–Fri 7:30am–5:30pm during school year" },
-  { id:"casa-mclennan", name:"CASA of McLennan County", cat:"family", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Volunteer court-appointed advocates for children in the foster care system. Also connects foster families and youth to community resources.", phone:"(254) 756-6673", website:"https://www.casamclennan.org", hours:"Mon–Fri 8am–5pm" },
-  { id:"mch-waco", name:"Methodist Children's Home — Waco Campus", cat:"family", areas:["north","west","county"], langs:["en","es"], desc:"Residential care, foster care, and family support services for children and youth in McLennan County. Accepts Medicaid and CHIP.", phone:"(254) 750-1241", website:"https://www.mch.org", hours:"Mon–Fri 8am–5pm" },
-  { id:"compassion-waco", name:"Compassion Waco — Youth Mentorship", cat:"family", areas:["downtown","east","south"], langs:["en","es"], desc:"Mentorship programs for youth in East Waco, connecting young people with adult mentors and providing after-school support and community resources.", phone:"(254) 741-0800", website:"https://www.compassionwaco.org", hours:"Mon–Fri 3pm–6pm; varies by site" },
-  { id:"cis-waco", name:"Communities In Schools of the Heart of Texas", cat:"family", areas:["downtown","north","east","south"], langs:["en","es"], desc:"School-based support for at-risk students and their families in Waco ISD. Site coordinators connect students to community resources, tutoring, mentoring, and crisis support.", phone:"(254) 741-5815", website:"https://www.cisheartoftexas.org", hours:"School hours; contact through site coordinator" },
-  { id:"carenet-waco", name:"CareNet Pregnancy Center of Central Texas", cat:"family", areas:["downtown","north","west"], langs:["en","es"], desc:"Free pregnancy tests, ultrasounds, and resources for women navigating unexpected pregnancies. Connects to community support for new parents.", phone:"(254) 752-0990", website:"https://www.carenetcentraltx.org", hours:"Mon–Fri 9am–5pm; some Sat hours" },
+  { id:"eoac-headstart", name:"EOAC — Head Start & Early Head Start", cat:"family", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Free early childhood education and family support for income-qualifying families with children birth to 5. Includes health screenings, meals, and parent engagement.", desc_es:"Educación infantil temprana y apoyo familiar gratuitos para familias que califiquen por ingresos con niños de 0 a 5 años. Incluye chequeos de salud, comidas y participación de los padres.", phone:"(254) 756-7637", website:"https://www.eoacwaco.org", hours:"Mon–Fri 7:30am–5:30pm during school year" },
+  { id:"casa-mclennan", name:"CASA of McLennan County", cat:"family", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Volunteer court-appointed advocates for children in the foster care system. Also connects foster families and youth to community resources.", desc_es:"Defensores voluntarios designados por la corte para niños en el sistema de cuidado de crianza. También conecta a familias de crianza y jóvenes con recursos comunitarios.", phone:"(254) 756-6673", website:"https://www.casamclennan.org", hours:"Mon–Fri 8am–5pm" },
+  { id:"mch-waco", name:"Methodist Children's Home — Waco Campus", cat:"family", areas:["north","west","county"], langs:["en","es"], desc:"Residential care, foster care, and family support services for children and youth in McLennan County. Accepts Medicaid and CHIP.", desc_es:"Cuidado residencial, cuidado de crianza y servicios de apoyo familiar para niños y jóvenes en el condado de McLennan. Acepta Medicaid y CHIP.", phone:"(254) 750-1241", website:"https://www.mch.org", hours:"Mon–Fri 8am–5pm" },
+  { id:"compassion-waco", name:"Compassion Waco — Youth Mentorship", cat:"family", areas:["downtown","east","south"], langs:["en","es"], desc:"Mentorship programs for youth in East Waco, connecting young people with adult mentors and providing after-school support and community resources.", desc_es:"Programas de mentoría para jóvenes en el este de Waco, conectando a jóvenes con mentores adultos y brindando apoyo extraescolar y recursos comunitarios.", phone:"(254) 741-0800", website:"https://www.compassionwaco.org", hours:"Mon–Fri 3pm–6pm; varies by site" },
+  { id:"cis-waco", name:"Communities In Schools of the Heart of Texas", cat:"family", areas:["downtown","north","east","south"], langs:["en","es"], desc:"School-based support for at-risk students and their families in Waco ISD. Site coordinators connect students to community resources, tutoring, mentoring, and crisis support.", desc_es:"Apoyo escolar para estudiantes en riesgo y sus familias en el distrito escolar de Waco. Los coordinadores conectan a los estudiantes con recursos comunitarios, tutorías, mentorías y apoyo en crisis.", phone:"(254) 741-5815", website:"https://www.cisheartoftexas.org", hours:"School hours; contact through site coordinator" },
+  { id:"carenet-waco", name:"CareNet Pregnancy Center of Central Texas", cat:"family", areas:["downtown","north","west"], langs:["en","es"], desc:"Free pregnancy tests, ultrasounds, and resources for women navigating unexpected pregnancies. Connects to community support for new parents.", desc_es:"Pruebas de embarazo, ecografías y recursos gratuitos para mujeres que enfrentan embarazos inesperados. Conecta con apoyo comunitario para nuevos padres.", phone:"(254) 752-0990", website:"https://www.carenetcentraltx.org", hours:"Mon–Fri 9am–5pm; some Sat hours" },
 
   // ── DV / SAFETY ───────────────────────────────────────────────────────
-  { id:"family-abuse-center", name:"Family Abuse Center Waco", cat:"safety", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"24/7 crisis hotline, emergency shelter, transitional housing, legal advocacy, and counseling for domestic violence survivors in McLennan County. Confidential and free.", phone:"(254) 752-8922", website:"https://www.familyabusecenter.org", hours:"24/7 crisis hotline" },
-  { id:"advocacy-center-waco", name:"Advocacy Center for Crime Victims & Children", cat:"safety", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Trauma-informed advocacy, counseling, and legal help for crime victims and children who have experienced abuse or violence in McLennan County.", phone:"(254) 752-8220", website:"https://www.advocacycenter.org", hours:"Mon–Fri 8am–5pm; 24/7 on-call" },
+  { id:"family-abuse-center", name:"Family Abuse Center Waco", cat:"safety", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"24/7 crisis hotline, emergency shelter, transitional housing, legal advocacy, and counseling for domestic violence survivors in McLennan County. Confidential and free.", desc_es:"Línea de crisis las 24 horas, refugio de emergencia, vivienda de transición, defensa legal y consejería para sobrevivientes de violencia doméstica en el condado de McLennan. Confidencial y gratuito.", phone:"(254) 752-8922", website:"https://www.familyabusecenter.org", hours:"24/7 crisis hotline" },
+  { id:"advocacy-center-waco", name:"Advocacy Center for Crime Victims & Children", cat:"safety", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Trauma-informed advocacy, counseling, and legal help for crime victims and children who have experienced abuse or violence in McLennan County.", desc_es:"Defensa, consejería y ayuda legal informada sobre trauma para víctimas de delitos y niños que han sufrido abuso o violencia en el condado de McLennan.", phone:"(254) 752-8220", website:"https://www.advocacycenter.org", hours:"Mon–Fri 8am–5pm; 24/7 on-call" },
 
   // ── SENIORS ───────────────────────────────────────────────────────────
-  { id:"waco-senior-advocacy", name:"Waco Advocacy Center for Seniors", cat:"seniors", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Advocacy, legal assistance, and community support for seniors in McLennan County. Provides help with elder abuse, fraud, and navigating government programs.", phone:"(254) 752-5574", website:"https://www.wacosenioradvocacy.org", hours:"Mon–Fri 8:30am–5pm" },
-  { id:"bosque-valley-aaa", name:"Heart of Texas Council of Governments — Area Agency on Aging", cat:"seniors", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"State-funded senior services including Meals on Wheels, caregiver support, transportation, legal aid referrals, and senior center programs across McLennan County.", phone:"(254) 292-1800", website:"https://www.hotcog.org", hours:"Mon–Fri 8am–5pm" },
-  { id:"aarp-waco", name:"AARP Texas — Waco Area Chapter", cat:"seniors", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Free tax preparation (VITA), Medicare counseling, fraud prevention, and community programs for adults 50+ in the Waco area.", phone:"1-888-687-2277", website:"https://www.aarp.org/states/texas", hours:"Varies by program; call for current services" },
+  { id:"waco-senior-advocacy", name:"Waco Advocacy Center for Seniors", cat:"seniors", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Advocacy, legal assistance, and community support for seniors in McLennan County. Provides help with elder abuse, fraud, and navigating government programs.", desc_es:"Defensa, asistencia legal y apoyo comunitario para personas mayores en el condado de McLennan. Ofrece ayuda con abuso a personas mayores, fraude y trámites de programas gubernamentales.", phone:"(254) 752-5574", website:"https://www.wacosenioradvocacy.org", hours:"Mon–Fri 8:30am–5pm" },
+  { id:"bosque-valley-aaa", name:"Heart of Texas Council of Governments — Area Agency on Aging", cat:"seniors", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"State-funded senior services including Meals on Wheels, caregiver support, transportation, legal aid referrals, and senior center programs across McLennan County.", desc_es:"Servicios para personas mayores financiados por el estado, incluyendo Meals on Wheels, apoyo a cuidadores, transporte, referencias de asistencia legal y programas de centros para mayores en todo el condado de McLennan.", phone:"(254) 292-1800", website:"https://www.hotcog.org", hours:"Mon–Fri 8am–5pm" },
+  { id:"aarp-waco", name:"AARP Texas — Waco Area Chapter", cat:"seniors", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Free tax preparation (VITA), Medicare counseling, fraud prevention, and community programs for adults 50+ in the Waco area.", desc_es:"Preparación de impuestos gratuita (VITA), asesoría sobre Medicare, prevención de fraude y programas comunitarios para adultos de 50 años o más en el área de Waco.", phone:"1-888-687-2277", website:"https://www.aarp.org/states/texas", hours:"Varies by program; call for current services" },
 
   // ── VETERANS ──────────────────────────────────────────────────────────
-  { id:"va-waco", name:"Central Texas Veterans Health Care System — Waco", cat:"veterans", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Full-service VA medical center providing primary care, mental health, substance use treatment, and specialty care for eligible veterans in Central Texas.", phone:"(254) 297-3000", website:"https://www.centraltexas.va.gov", hours:"24/7 emergency; clinics Mon–Fri 7:30am–4:30pm" },
-  { id:"mclennan-vso", name:"McLennan County Veterans Service Office", cat:"veterans", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Free assistance navigating VA benefits, disability claims, pensions, and appeals. County-funded, veteran-staffed office serving all McLennan County veterans.", phone:"(254) 757-5100", website:"https://www.co.mclennan.tx.us", hours:"Mon–Fri 8am–5pm" },
-  { id:"waco-veterans-connect", name:"Waco Veterans Connect", cat:"veterans", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Community organization connecting Waco-area veterans to services, peer support, employment, and community resources. Navigator assistance available.", phone:"(254) 300-0700", website:"https://www.wacoveterans.org", hours:"Mon–Fri 9am–4pm" },
+  { id:"va-waco", name:"Central Texas Veterans Health Care System — Waco", cat:"veterans", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Full-service VA medical center providing primary care, mental health, substance use treatment, and specialty care for eligible veterans in Central Texas.", desc_es:"Centro médico de VA de servicio completo que ofrece atención primaria, salud mental, tratamiento de abuso de sustancias y atención especializada para veteranos elegibles en el centro de Texas.", phone:"(254) 297-3000", website:"https://www.centraltexas.va.gov", hours:"24/7 emergency; clinics Mon–Fri 7:30am–4:30pm" },
+  { id:"mclennan-vso", name:"McLennan County Veterans Service Office", cat:"veterans", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Free assistance navigating VA benefits, disability claims, pensions, and appeals. County-funded, veteran-staffed office serving all McLennan County veterans.", desc_es:"Asistencia gratuita para tramitar beneficios de VA, reclamos por discapacidad, pensiones y apelaciones. Oficina financiada por el condado y atendida por veteranos, sirviendo a todos los veteranos del condado de McLennan.", phone:"(254) 757-5100", website:"https://www.co.mclennan.tx.us", hours:"Mon–Fri 8am–5pm" },
+  { id:"waco-veterans-connect", name:"Waco Veterans Connect", cat:"veterans", areas:["downtown","north","east","south","west","county"], langs:["en","es"], desc:"Community organization connecting Waco-area veterans to services, peer support, employment, and community resources. Navigator assistance available.", desc_es:"Organización comunitaria que conecta a los veteranos del área de Waco con servicios, apoyo entre pares, empleo y recursos comunitarios. Asistencia de navegación disponible.", phone:"(254) 300-0700", website:"https://www.wacoveterans.org", hours:"Mon–Fri 9am–4pm" },
 ];
 
 // State
 let activeNeed="", activeArea="", activeLang="", activeCat="";
+let currentLang = "en";
 
 function gcTrack(path, title) {
   if (window.goatcounter && window.goatcounter.count)
@@ -388,20 +397,27 @@ function gcTrack(path, title) {
 }
 
 function badgeLabel(cat) {
-  return {food:"Food",housing:"Housing",health:"Health",mental:"Mental Health",immigration:"Immigration",family:"Family",safety:"DV / Safety",seniors:"Seniors",veterans:"Veterans"}[cat] || cat;
+  const en = {food:"Food",housing:"Housing",health:"Health",mental:"Mental Health",immigration:"Immigration",family:"Family",safety:"DV / Safety",seniors:"Seniors",veterans:"Veterans"};
+  const es = {food:"Comida",housing:"Vivienda",health:"Salud",mental:"Salud Mental",immigration:"Inmigración",family:"Familia",safety:"Violencia Doméstica",seniors:"Personas Mayores",veterans:"Veteranos"};
+  return (currentLang==='es' ? es[cat] : en[cat]) || cat;
 }
 
 function langLabel(l) {
   return {en:"EN",es:"ES",vi:"VI",zh:"中",ar:"AR"}[l] || l.toUpperCase();
 }
 
+function t(en, es) { return currentLang==='es' ? es : en; }
+
 function render(resources) {
   const grid = document.getElementById("results-grid");
   document.getElementById("results-count").textContent = resources.length
-    ? `${resources.length} resource${resources.length===1?'':'s'} found`
+    ? t(`${resources.length} resource${resources.length===1?'':'s'} found`, `${resources.length} recurso${resources.length===1?'':'s'} encontrado${resources.length===1?'':'s'}`)
     : "";
   if (!resources.length) {
-    grid.innerHTML = `<div class="empty-state"><p>No matches with these filters. Try fewer filters, or call <strong>211</strong> (free, 24/7, multilingual) — they can help directly.</p></div>`;
+    grid.innerHTML = `<div class="empty-state"><p>${t(
+      'No matches with these filters. Try fewer filters, or call <strong>211</strong> (free, 24/7, multilingual) — they can help directly.',
+      'No hay coincidencias con estos filtros. Prueba con menos filtros, o llama al <strong>211</strong> (gratis, las 24 horas, multilingüe) — pueden ayudarte directamente.'
+    )}</p></div>`;
     return;
   }
   grid.innerHTML = resources.map(r => `
@@ -410,16 +426,16 @@ function render(resources) {
         <span class="card-name">${r.name}</span>
         <span class="badge badge-${r.cat}">${badgeLabel(r.cat)}</span>
       </div>
-      <p class="card-desc">${r.desc}</p>
+      <p class="card-desc">${currentLang==='es' && r.desc_es ? r.desc_es : r.desc}</p>
       <div class="card-meta">
         ${r.hours ? `<span>🕐 ${r.hours}</span>` : ''}
         ${r.phone ? `<span>📞 ${r.phone}</span>` : ''}
       </div>
       <div class="card-actions">
-        ${r.phone ? `<a class="card-link phone" href="tel:${r.phone.replace(/\D/g,'')}" onclick="gcTrack('resource-call/${r.id}','Call: ${r.name}')">📞 Call</a>` : ''}
-        ${r.website ? `<a class="card-link" href="${r.website}" target="_blank" rel="noopener" onclick="gcTrack('resource-visit/${r.id}','Visit: ${r.name}')">Website →</a>` : ''}
+        ${r.phone ? `<a class="card-link phone" href="tel:${r.phone.replace(/\D/g,'')}" onclick="gcTrack('resource-call/${r.id}','Call: ${r.name}')">📞 ${t('Call','Llamar')}</a>` : ''}
+        ${r.website ? `<a class="card-link" href="${r.website}" target="_blank" rel="noopener" onclick="gcTrack('resource-visit/${r.id}','Visit: ${r.name}')">${t('Website →','Sitio web →')}</a>` : ''}
         <span class="card-langs">${r.langs.map(langLabel).join(' · ')}</span>
-        <button class="card-link" onclick="openReportFor('${r.name.replace(/'/g,"\\'")}')">Report error</button>
+        <button class="card-link" onclick="openReportFor('${r.name.replace(/'/g,"\\'")}')">${t('Report error','Reportar error')}</button>
       </div>
     </div>
   `).join('');
@@ -483,7 +499,7 @@ document.getElementById('modal-overlay').addEventListener('click', e => {
 document.getElementById('error-form').addEventListener('submit', async function(e) {
   e.preventDefault();
   const btn = this.querySelector('[type=submit]');
-  btn.textContent='Sending…'; btn.disabled=true;
+  btn.textContent = t('Sending…','Enviando…'); btn.disabled=true;
   try {
     const res = await fetch(this.action, { method:'POST', body:new FormData(this), headers:{'Accept':'application/json'} });
     if (res.ok) {
@@ -492,18 +508,32 @@ document.getElementById('error-form').addEventListener('submit', async function(
       gcTrack('waco/error-report-submitted','Waco error report submitted');
     } else {
       document.getElementById('form-err-msg').style.display='block';
-      btn.textContent='Send report'; btn.disabled=false;
+      btn.textContent = t('Send report','Enviar reporte'); btn.disabled=false;
     }
   } catch {
     document.getElementById('form-err-msg').style.display='block';
-    btn.textContent='Send report'; btn.disabled=false;
+    btn.textContent = t('Send report','Enviar reporte'); btn.disabled=false;
   }
 });
 
 function setLang(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
   document.querySelectorAll('.lang-btn').forEach(b =>
-    b.classList.toggle('active', b.textContent.trim().toLowerCase().startsWith(lang==='en'?'eng':'esp'))
+    b.classList.toggle('active', b.dataset.lang === lang)
   );
+
+  document.querySelectorAll('[data-en-html]').forEach(el => {
+    el.innerHTML = lang === 'es' ? el.dataset.esHtml : el.dataset.enHtml;
+  });
+  document.querySelectorAll('[data-en]:not([data-en-html])').forEach(el => {
+    el.textContent = lang === 'es' ? el.dataset.es : el.dataset.en;
+  });
+  document.querySelectorAll('[data-en-ph]').forEach(el => {
+    el.placeholder = lang === 'es' ? el.dataset.esPh : el.dataset.enPh;
+  });
+
+  render(getFiltered());
   gcTrack(`waco/lang/${lang}`, `Waco language: ${lang}`);
 }
 
